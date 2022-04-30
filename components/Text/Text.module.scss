@@ -1,0 +1,11 @@
+@use 'scss/tools/calculators' as tools;
+
+.text {
+  font-size: tools.rem(18);
+  line-height: 1.6;
+
+  &--large {
+    font-size: tools.rem(24);
+    line-height: 1.6;
+  }
+}

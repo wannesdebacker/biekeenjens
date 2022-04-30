@@ -1,0 +1,32 @@
+@use 'scss/tools/calculators' as calculators;
+
+$breakpoints: (
+  xsmall: (
+    size: 360,
+    sideSpacing: calculators.rem(24)
+  ),
+  small: (
+    size: 480,
+    sideSpacing: calculators.rem(24)
+  ),
+  medium: (
+    size: 768,
+    sideSpacing: calculators.rem(24)
+  ),
+  large: (
+    size: 1024,
+    sideSpacing: calculators.rem(24)
+  ),
+  container: (
+    size: 1176,
+    container: calculators.rem(1128)
+  ),
+  xlarge: (
+    size: 1440,
+    container: calculators.rem(1128)
+  ),
+  xxlarge: (
+    size: 1600,
+    container: calculators.rem(1128)
+  )
+);

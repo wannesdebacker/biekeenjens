@@ -1,0 +1,9 @@
+@use 'scss/tools/calculators';
+
+.title {
+  line-height: 1.1;
+
+  &--h1 {
+    font-size: 3
+  }
+}

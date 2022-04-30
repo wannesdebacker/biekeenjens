@@ -1,0 +1,33 @@
+.navigation {
+  position: fixed;
+  padding: 0;
+  top: 0;
+  width: 100%;
+  border-bottom: 1px dashed #ccc;
+}
+
+.navigation__container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.navigation__items {
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.navigation__item {
+  display: block;
+}
+
+.navigation__link {
+  padding: 10px 5px;
+
+  &:last-child {
+    padding-right: 0;
+  }
+}

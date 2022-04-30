@@ -1,0 +1,84 @@
+@use '../settings/breakpoints' as *;
+@use './calculators' as *;
+
+@mixin respond-from($media) {
+  @if $media == xsmall {
+    @media screen and (min-width: em(map-get($breakpoints, 'xsmall', 'size'))) {
+      @content;
+    }
+  } @else if $media == small {
+    @media screen and (min-width: em(map-get($breakpoints, 'small' , 'size'))) {
+      @content;
+    }
+  } @else if $media == medium {
+    @media screen and (min-width: em(map-get($breakpoints, 'medium' , 'size'))) {
+      @content;
+    }
+  } @else if $media == large {
+    @media screen and (min-width: em(map-get($breakpoints, 'large' , 'size'))) {
+      @content;
+    }
+  } @else if $media == container {
+    @media screen and (min-width: em(map-get($breakpoints, 'container' , 'size'))) {
+      @content;
+    }
+  } @else if $media == xlarge {
+    @media screen and (min-width: em(map-get($breakpoints, 'xlarge' , 'size'))) {
+      @content;
+    }
+  } @else if $media == xxlarge {
+    @media screen and (min-width: em(map-get($breakpoints, 'xxlarge' , 'size'))) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin respond-up-to($media) {
+  @if $media == xsmall {
+    @media screen and (max-width: em(map-get($breakpoints, 'xsmall', 'size') - 1)) {
+      @content;
+    }
+  } @else if $media == small {
+    @media screen and (max-width: em(map-get($breakpoints, 'small', 'size') - 1)) {
+      @content;
+    }
+  } @else if $media == medium {
+    @media screen and (max-width: em(map-get($breakpoints, 'medium', 'size') - 1)) {
+      @content;
+    }
+  } @else if $media == large {
+    @media screen and (max-width: em(map-get($breakpoints, 'large', 'size') - 1)) {
+      @content;
+    }
+  } @else if $media == container {
+    @media screen and (max-width: em(map-get($breakpoints, 'container', 'size') - 1)) {
+      @content;
+    }
+  } @else if $media == xlarge {
+    @media screen and (max-width: em(map-get($breakpoints, 'xlarge', 'size') - 1)) {
+      @content;
+    }
+  } @else if $media == xxlarge {
+    @media screen and (max-width: em(map-get($breakpoints, 'xxlarge', 'size') - 1)) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin breakpoint($from, $to: null) {
+  @if $to == null and $from != null {
+    @media (min-width: em($from)) {
+      @content;
+    }
+  } @else if $to != null and $from != null {
+    @media (min-width: em($from)) and (max-width: em($to)) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
