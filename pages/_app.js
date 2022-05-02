@@ -4,6 +4,7 @@ import { LoadingProvider } from 'context/loading';
 import Head from 'next/head';
 import 'scss/elements/index.scss';
 import Navigation from 'components/Navigation';
+import Footer from 'components/Footer';
 
 function MyApp({ Component, pageProps }) {
   const { page, allPages } = pageProps.data || {};
@@ -22,6 +23,7 @@ function MyApp({ Component, pageProps }) {
       <LoadingProvider value={{ loading: true }}>
         <Navigation pages={allPages} />
         <Component {...pageProps} />
+        <Footer />
       </LoadingProvider>
     </>
   );

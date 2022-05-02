@@ -1,0 +1,18 @@
+.footer {
+  background-color: #2a3d45ff;
+  color: #ffffff;
+  margin-top: 60px;
+  padding: 50px 0;
+
+  a {
+    color: inherit;
+  }
+}
+
+.footer__wrapper {
+  max-width: 1024px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

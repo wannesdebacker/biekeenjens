@@ -1,0 +1,14 @@
+@use '/scss/tools/' as tools;
+
+.video-block {
+  max-width: tools.rem(1024);
+  margin-left: auto;
+  margin-right: auto;
+  padding: tools.rem(60) 0;
+  margin: tools.rem(80) auto;
+}
+
+.video-block__text {
+  padding: tools.rem(20) tools.rem(175);
+  text-align: center;
+}

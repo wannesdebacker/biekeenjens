@@ -5,9 +5,8 @@ import Title from 'components/Title';
 import Button from 'components/Button';
 import Text from 'components/Text';
 
-const Header = ({ className, ...props }) => {
+const Header = ({ className, title, date }) => {
   const classes = classNames(styles['header'], className);
-  const { title, intro } = props;
 
   return (
     <header className={classes}>
@@ -18,18 +17,14 @@ const Header = ({ className, ...props }) => {
               {title}
             </Title>
           )}
-          {!!intro && (
-            <Text modLarge modWysiwyg className={styles['header__copy']}>
-              {intro}
-            </Text>
-          )}
-          <Button href={'/'}>Go to button</Button>
+          {!!date && <Text className={styles['header__date']}>{date}</Text>}
+          {/* <Button href={'/'}>Go to button</Button> */}
         </div>
         <div className={styles['header__artwork']}>
           <figure className={styles['header__figure']}>
             <img
               className={styles['header__image']}
-              src="https://picsum.photos/1300/1200"
+              src="https://picsum.photos/650/650"
               alt=""
               loading="lazy"
             />

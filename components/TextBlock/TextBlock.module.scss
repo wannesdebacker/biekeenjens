@@ -1,0 +1,57 @@
+@use '/scss/tools/' as tools;
+
+.text-block-wrapper {
+  max-width: tools.rem(1024);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text-block {
+  max-width: 1024px;
+  padding: tools.rem(60) 0;
+  margin: tools.rem(80) 0;
+  text-align: center;
+
+  &--float {
+    text-align: left;
+    display: grid;
+    grid-template-columns: calc(50% - tools.rem(50)) calc(50% - tools.rem(50));
+    grid-template-rows: 1fr;
+    grid-column-gap: tools.rem(100);
+    grid-row-gap: 0;
+    align-items: center;
+  }
+
+  &--float-right {
+    & > * {
+      order: 2;
+    }
+
+    & > *:last-child {
+      order: 1;
+    }
+  }
+}
+
+.text-block__text-wrapper {
+  flex-grow: 0;
+  margin-bottom: tools.rem(40);
+  padding: tools.rem(20) tools.rem(100);
+
+  .text-block--float & {
+    margin-bottom: 0;
+    padding: 0;
+  }
+}
+
+.text-block__image {
+  max-height: 60vh;
+  max-width: 100%;
+  object-fit: cover;
+}
+
+.text-block__image-wrapper {
+  max-height: 70vh;
+  display: flex;
+  justify-content: center;
+}

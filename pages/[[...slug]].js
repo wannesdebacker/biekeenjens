@@ -1,9 +1,15 @@
 import { getPageData } from 'lib/api/page';
 import Page from 'components/Page';
-import Header from 'components/Header';
+
+import ComponentMatrix from 'components/ComponentMatrix';
 
 export async function getServerSideProps(context) {
-  const data = await getPageData(context?.params?.slug[0]);
+  const slug = context?.query?.slug?.[0] || 'homepage';
+
+  console.log({ slug });
+  const data = await getPageData(slug);
+
+  console.log(data);
 
   return {
     props: { data },
@@ -19,7 +25,7 @@ export default function Home({ data }) {
 
   return (
     <Page>
-      <Header title={page?.headerTitle} intro={page?.intro} />
+      <ComponentMatrix blocks={page?.blocks} />
     </Page>
   );
 }

@@ -1,0 +1,7 @@
+@use '/scss/tools/' as tools;
+
+.video-wrapper {
+  position: relative;
+  margin: tools.rem(15) 0;
+  box-shadow: tools.rem(5) tools.rem(5) tools.rem(10) rgba(0, 0, 0, 0.2);
+}

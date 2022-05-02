@@ -1,0 +1,10 @@
+@use '/scss/tools/' as tools;
+
+.image-wrapper {
+  position: relative;
+  max-height: 700px;
+}
+
+.image--shadow {
+  box-shadow: tools.rem(5) tools.rem(5) tools.rem(10) rgba(0, 0, 0, 0.2);
+}
