@@ -15,20 +15,18 @@ const GalleryBlock = ({ title, text, images }) => {
         {images?.length && (
           <div className={styles['gallery-block__images-wrapper']}>
             {images.map(({ url, alt, id }, index) => (
-              <>
-                <div
-                  key={`${id}-gallery-block-${index}`}
-                  className={styles['gallery-block__image-wrapper']}
-                >
-                  <Image
-                    modShadow={false}
-                    src={url}
-                    alt={alt}
-                    modZoom
-                    className={styles['gallery-block__image']}
-                  />
-                </div>
-              </>
+              <div
+                key={`${id}-gallery-block-${index}`}
+                className={styles['gallery-block__image-wrapper']}
+              >
+                <Image
+                  modShadow={false}
+                  src={url}
+                  alt={alt}
+                  modZoom
+                  className={styles['gallery-block__image']}
+                />
+              </div>
             ))}
           </div>
         )}

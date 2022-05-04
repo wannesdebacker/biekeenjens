@@ -44,7 +44,7 @@ const CheckinBlock = ({ title, text }) => {
 
         if (naam !== '' && dag !== '' && genodigden !== '') {
           async function addCheckin() {
-            const client = new SiteClient('9d2b3d2e2fbde10cef878925897c25');
+            const client = new SiteClient(process.env.NEXT_PUBLIC_DATOCMS_API_TOKEN);
             const record = await client.items.create({
               itemType: '218135', // model ID checkin
               naam,
@@ -63,7 +63,6 @@ const CheckinBlock = ({ title, text }) => {
           return true;
         }
 
-        setFormSubmitted(false);
         setFormError(true);
 
         return false;

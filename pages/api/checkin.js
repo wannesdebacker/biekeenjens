@@ -15,7 +15,7 @@ export default function handler(req, res) {
 
       if (naam !== '' && dag !== '' && genodigden !== '') {
         async function addCheckin() {
-          const client = new SiteClient(process.env.NEXT_DATOCMS_API_TOKEN);
+          const client = new SiteClient(process.env.NEXT_PUBLIC_DATOCMS_API_TOKEN);
           const record = await client.items.create({
             itemType: '218135', // model ID checkin
             naam,
