@@ -1,0 +1,60 @@
+@use '/scss/tools/' as tools;
+
+.checkin-block__list-item {
+  &--honing {
+    opacity: 0;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
+}
+
+.checkin-block {
+  display: block;
+}
+
+.checkin-block__wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 100%;
+  max-width: 500px;
+}
+
+.checkin-block__form {
+  flex: 1;
+}
+
+.checkin-block__list {
+  padding: 0;
+  margin: 0;
+  display: block;
+}
+
+.checkin-block__list-item {
+  display: block;
+  margin-bottom: tools.rem(16);
+}
+
+.checkin-block__error {
+  color: #f44336;
+  margin: tools.rem(8) 0;
+  display: block;
+}
+
+.checkin-block__label {
+  display: block;
+  font-size: tools.rem(18);
+  font-weight: bold;
+  padding-bottom: tools.rem(5);
+}
+
+.checkin-block__input {
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 0;
+}

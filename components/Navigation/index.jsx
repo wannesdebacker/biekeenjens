@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import styles from './Navigation.module.scss';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import LanguageChooser from 'components/LanguageChooser';
 
 const Navigation = ({ pages = [], className }) => {
   const classes = classNames(styles['navigation'], className);
@@ -33,6 +34,9 @@ const Navigation = ({ pages = [], className }) => {
             </ul>
           )}
         </nav>
+        <div className={styles['navigation__language-chooser']}>
+          <LanguageChooser />
+        </div>
       </div>
     </div>
   );

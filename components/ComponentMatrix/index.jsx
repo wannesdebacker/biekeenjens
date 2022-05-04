@@ -6,6 +6,7 @@ import MatrixComponent from 'components/MatrixComponent';
 import styles from './ComponentMatrix.module.scss';
 import CallToActionBlock from 'components/CallToActionBlock';
 import GalleryBlock from 'components/GalleryBlock';
+import CheckinBlock from 'components/CheckinBlock';
 
 const ComponentMatrix = ({ blocks = [] }) => {
   if (!blocks?.length) {
@@ -65,6 +66,13 @@ const ComponentMatrix = ({ blocks = [] }) => {
           return (
             <MatrixComponent key={`${block.__typename}-${index}`} even={index % 2 === 0}>
               <VideoBlock title={block?.title} text={block?.text} youtubeId={block?.youtubeId} />
+            </MatrixComponent>
+          );
+        }
+        if (block.__typename === 'CheckinRecord') {
+          return (
+            <MatrixComponent key={`${block.__typename}-${index}`} even={index % 2 === 0}>
+              <CheckinBlock title={block?.title} text={block?.text} />
             </MatrixComponent>
           );
         }

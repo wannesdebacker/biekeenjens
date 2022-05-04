@@ -5,7 +5,6 @@ import React from 'react';
 import styles from './GalleryBlock.module.scss';
 
 const GalleryBlock = ({ title, text, images }) => {
-  console.log(images);
   return (
     <div className={styles['gallery-block']}>
       <div className={styles['gallery-block__wrapper']}>
@@ -17,16 +16,10 @@ const GalleryBlock = ({ title, text, images }) => {
           <div className={styles['gallery-block__images-wrapper']}>
             {images.map(({ url, alt, id }, index) => (
               <>
-                <div key={id} className={styles['gallery-block__image-wrapper']}>
-                  <Image
-                    modShadow={false}
-                    src={url}
-                    alt={alt}
-                    modZoom
-                    className={styles['gallery-block__image']}
-                  />
-                </div>
-                <div key={id} className={styles['gallery-block__image-wrapper']}>
+                <div
+                  key={`${id}-gallery-block-${index}`}
+                  className={styles['gallery-block__image-wrapper']}
+                >
                   <Image
                     modShadow={false}
                     src={url}

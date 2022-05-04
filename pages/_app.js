@@ -5,8 +5,9 @@ import Head from 'next/head';
 import 'scss/elements/index.scss';
 import Navigation from 'components/Navigation';
 import Footer from 'components/Footer';
+import { appWithTranslation } from 'next-i18next';
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, locale }) {
   const { page, allPages } = pageProps.data || {};
 
   return (
@@ -23,6 +24,7 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <LoadingProvider value={{ loading: true }}>
         <Navigation pages={allPages} />
+        {locale}
         <Component {...pageProps} />
         <Footer />
       </LoadingProvider>
@@ -30,6 +32,6 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp);
 
 /* eslint-enable @next/next/no-page-custom-font */

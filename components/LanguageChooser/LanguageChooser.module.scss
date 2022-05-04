@@ -1,0 +1,58 @@
+@use '/scss/tools/' as tools;
+
+.language-chooser {
+  padding: 0;
+}
+
+.language-chooser__list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  padding-right: tools.rem(30);
+}
+
+.language-chooser__item {
+  display: inline-flex;
+
+  &::after {
+    content: '/';
+    position: relative;
+    padding: tools.rem(10);
+    color: #EBEBEB;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: tools.rem(12);
+    display: block;
+
+    @include tools.respond-from(large) {
+      font-size: 20px;
+      padding: tools.rem(25) tools.rem(0) tools.rem(20) tools.rem(0);
+    }
+  }
+
+  &:last-child {
+    &::after {
+      display: none;
+    }
+  }
+}
+
+.language-chooser__span {
+  font-weight: bold;
+}
+
+.language-chooser__span,
+.language-chooser__link {
+  position: relative;
+  padding: tools.rem(10);
+  color: #EBEBEB;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: tools.rem(12);
+  display: block;
+
+  @include tools.respond-from(large) {
+    font-size: 20px;
+    padding: tools.rem(25) tools.rem(0) tools.rem(20) tools.rem(0);
+  }
+}

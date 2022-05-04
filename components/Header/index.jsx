@@ -6,8 +6,15 @@ import Button from 'components/Button';
 import Text from 'components/Text';
 import Image from 'components/Image';
 
+import { format } from 'date-fns';
+import { nl, en } from 'date-fns/locale';
+
+import React from 'react';
+import { useRouter } from 'next/router';
+
 const Header = ({ className, title, logo, image, links = [], date }) => {
   const classes = classNames(styles['header'], className);
+  const { locale } = useRouter();
 
   return (
     <header className={classes}>
@@ -45,7 +52,7 @@ const Header = ({ className, title, logo, image, links = [], date }) => {
           )}
           {!!date && (
             <Title variant={'h3'} className={styles['header__date']}>
-              {date}
+              {format(new Date(date), 'do MMMM yyyy', { locale: locale === 'nl' ? nl : en })}
             </Title>
           )}
         </div>

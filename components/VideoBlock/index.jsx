@@ -8,19 +8,24 @@ import Text from 'components/Text';
 
 const VideoBlock = ({ title, text, youtubeId, className }) => {
   const classes = classNames(styles['video-block'], className);
-  return (
-    <div className={classes}>
-      <div className={styles['video-block__text']}>
-        {!!title && (
-          <Title variant="h2" modLarge>
-            {title}
-          </Title>
-        )}
-        {!!text && <Text modWysiwyg>{text}</Text>}
+
+  try {
+    return (
+      <div className={classes}>
+        <div className={styles['video-block__text']}>
+          {!!title && (
+            <Title variant="h2" modLarge>
+              {title}
+            </Title>
+          )}
+          {!!text && <Text modWysiwyg>{text}</Text>}
+        </div>
+        {!!youtubeId && <Video youtubeId={youtubeId} />}
       </div>
-      {!!youtubeId && <Video youtubeId={youtubeId} />}
-    </div>
-  );
+    );
+  } catch (error) {
+    return null;
+  }
 };
 
 export default VideoBlock;
