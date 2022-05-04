@@ -29,6 +29,7 @@ const ComponentMatrix = ({ blocks = [] }) => {
                 logo={block?.logo}
                 date={block?.datum}
                 links={block?.links}
+                small={block?.small}
               />
             </MatrixComponent>
           );

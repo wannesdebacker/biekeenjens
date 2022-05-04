@@ -12,9 +12,49 @@ import { nl, en } from 'date-fns/locale';
 import React from 'react';
 import { useRouter } from 'next/router';
 
-const Header = ({ className, title, logo, image, links = [], date }) => {
-  const classes = classNames(styles['header'], className);
+const Header = ({ className, title, logo, image, links = [], date, small = false }) => {
+  const classes = classNames(styles['header'], styles['header--small'], className);
   const { locale } = useRouter();
+
+  if (small) {
+    return (
+      <header className={classes}>
+        <figure className={styles['header__logo']}>
+          <Image
+            className={styles['header__logo__img']}
+            src={logo?.url}
+            alt={logo?.alt}
+            modShadow={false}
+            modZoom={false}
+          />
+        </figure>
+        {image && (
+          <div className={styles['header__artwork']}>
+            <figure className={styles['header__figure']}>
+              <img
+                className={styles['header__image']}
+                src={image?.url}
+                alt={image?.alt}
+                loading="lazy"
+              />
+            </figure>
+          </div>
+        )}
+        <div className={styles['header__text-content']}>
+          {!!title && (
+            <Title className={styles['header__title']} variant="h1" modLarge>
+              {title}
+            </Title>
+          )}
+          {!!date && (
+            <Title variant={'h3'} className={styles['header__date']}>
+              {format(new Date(date), 'do MMMM yyyy', { locale: locale === 'nl' ? nl : en })}
+            </Title>
+          )}
+        </div>
+      </header>
+    );
+  }
 
   return (
     <header className={classes}>
