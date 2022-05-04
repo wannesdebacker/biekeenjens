@@ -4,22 +4,24 @@
   max-width: tools.rem(1024);
   margin-left: auto;
   margin-right: auto;
+  overflow: hidden;
 }
 
 .text-block {
   max-width: 1024px;
-  padding: tools.rem(60) 0;
-  margin: tools.rem(80) 0;
+  padding: 0 0 tools.rem(30);
   text-align: center;
 
   &--float {
-    text-align: left;
-    display: grid;
-    grid-template-columns: calc(50% - tools.rem(50)) calc(50% - tools.rem(50));
-    grid-template-rows: 1fr;
-    grid-column-gap: tools.rem(100);
-    grid-row-gap: 0;
-    align-items: center;
+    @include tools.respond-from(large) {
+      text-align: left;
+      display: grid;
+      grid-template-columns: calc(50% - tools.rem(50)) calc(50% - tools.rem(50));
+      grid-template-rows: 1fr;
+      grid-column-gap: tools.rem(100);
+      grid-row-gap: 0;
+      align-items: center;
+    }
   }
 
   &--float-right {
@@ -36,11 +38,17 @@
 .text-block__text-wrapper {
   flex-grow: 0;
   margin-bottom: tools.rem(40);
-  padding: tools.rem(20) tools.rem(100);
+  padding: tools.rem(20) tools.rem(30);
+
+  @include tools.respond-from(large) {
+    padding: tools.rem(20) tools.rem(100);
+  }
 
   .text-block--float & {
-    margin-bottom: 0;
-    padding: 0;
+    @include tools.respond-from(large) {
+      margin-bottom: 0;
+      padding: 0;
+    }
   }
 }
 
@@ -54,4 +62,9 @@
   max-height: 70vh;
   display: flex;
   justify-content: center;
+  padding: 0 tools.rem(30);
+
+  @include tools.respond-from(large) {
+    padding: 0;
+  }
 }

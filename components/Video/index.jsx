@@ -9,6 +9,10 @@ import styles from './Video.module.scss';
 const Video = ({ youtubeId, className }) => {
   const classes = classNames(styles['video-wrapper'], className);
 
+  if (!youtubeId) {
+    return null;
+  }
+
   return (
     <div className={classes}>
       <Plyr

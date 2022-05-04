@@ -1,3 +1,16 @@
 .matrix-component {
   display: block;
+  background: linear-gradient(180deg, #ebebeb, #cacaca);
+  padding: 60px 0;
+
+  &--even {
+    background: linear-gradient(0, #ebebeb, #cacaca);
+  }
+
+  &--header {
+    display: block;
+    padding: 0;
+    margin-bottom: 60px;
+    background-color: transparent;
+  }
 }

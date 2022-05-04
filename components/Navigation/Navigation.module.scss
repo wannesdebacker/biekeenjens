@@ -1,15 +1,17 @@
+@use '/scss/tools/' as tools;
+
 .navigation {
+  position: absolute;
   padding: 0;
   top: 0;
   width: 100%;
-  height: 75px;
-  border-bottom: 1px dashed #ccc;
+  z-index: 5;
 }
 
 .navigation__container {
   display: flex;
+  justify-content: flex-end;
   padding: 20px;
-  max-width: 1024px;
   margin: 0 auto;
 }
 
@@ -17,6 +19,11 @@
   margin: 0;
   padding: 0;
   display: flex;
+  padding-right: tools.rem(10);
+
+  @include tools.respond-from(large) {
+    padding-right: tools.rem(25);
+  }
 }
 
 .navigation__item {
@@ -24,9 +31,45 @@
 }
 
 .navigation__link {
-  padding: 10px 5px;
+  position: relative;
+  padding: tools.rem(10);
+  color: #EBEBEB;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: tools.rem(12);
+  display: block;
 
-  &:last-child {
-    padding-right: 0;
+  @include tools.respond-from(large) {
+    font-size: 20px;
+    padding: tools.rem(25) tools.rem(25) tools.rem(20) tools.rem(25);
+  }
+
+  &::after {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    content: '';
+    display: block;
+    height: 1px;
+    background: #EBEBEB;
+    width: 70%;
+    margin-left: 15%;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.192s ease;
+  }
+
+  &--active {
+    &::after {
+      opacity: 1;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    &::after {
+      opacity: 1;
+    }
   }
 }

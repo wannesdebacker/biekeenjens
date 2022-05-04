@@ -5,11 +5,7 @@ import ComponentMatrix from 'components/ComponentMatrix';
 
 export async function getServerSideProps(context) {
   const slug = context?.query?.slug?.[0] || 'homepage';
-
-  console.log({ slug });
   const data = await getPageData(slug);
-
-  console.log(data);
 
   return {
     props: { data },

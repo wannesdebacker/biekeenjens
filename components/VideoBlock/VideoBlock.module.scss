@@ -4,11 +4,18 @@
   max-width: tools.rem(1024);
   margin-left: auto;
   margin-right: auto;
-  padding: tools.rem(60) 0;
-  margin: tools.rem(80) auto;
+  padding: tools.rem(30) tools.rem(30);
+
+  @include tools.respond-from(large) {
+    padding: tools.rem(20) 0;
+  }
 }
 
 .video-block__text {
-  padding: tools.rem(20) tools.rem(175);
+  padding: tools.rem(20);
   text-align: center;
+
+  @include tools.respond-from(large) {
+    padding: tools.rem(20) tools.rem(175);
+  }
 }

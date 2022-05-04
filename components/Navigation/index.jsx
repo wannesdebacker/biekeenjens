@@ -1,9 +1,11 @@
 import classNames from 'classnames';
 import styles from './Navigation.module.scss';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const Navigation = ({ pages = [], className }) => {
   const classes = classNames(styles['navigation'], className);
+  const { asPath } = useRouter();
 
   return (
     <div className={classes}>
@@ -15,8 +17,15 @@ const Navigation = ({ pages = [], className }) => {
               {pages.map((item, index) => {
                 return (
                   <li className={styles['navigation__item']} key={`${item.title}-${index}`}>
-                    <Link href={`/${item.slug}`}>
-                      <a className={styles['navigation__link']}>{item.title}</a>
+                    <Link href={item.slug === 'homepage' ? '/' : `/${item.slug}`}>
+                      <a
+                        className={classNames(
+                          styles['navigation__link'],
+                          asPath === `/${item.slug}` && styles['navigation__link--active'],
+                        )}
+                      >
+                        {item.title}
+                      </a>
                     </Link>
                   </li>
                 );

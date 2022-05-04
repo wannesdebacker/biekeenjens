@@ -9,36 +9,68 @@
   }
 
   &--h1 {
-    font-size: tools.rem(48);
+    font-size: tools.rem(30);
+
+    @include tools.respond-from(xlarge) {
+      font-size: tools.rem(48);
+    }
   }
 
   &--h2 {
-    font-size: tools.rem(36);
+    font-size: tools.rem(24);
+
+    @include tools.respond-from(xlarge) {
+      font-size: tools.rem(36);
+    }
   }
 
   &--h3 {
-    font-size: tools.rem(24);
+    font-size: tools.rem(18);
+
+    @include tools.respond-from(xlarge) {
+      font-size: tools.rem(24);
+    }
   }
 
   &--h4 {
     font-size: tools.rem(20);
+
+    @include tools.respond-from(xlarge) {
+      font-size: tools.rem(20);
+    }
   }
 
   &--large {
-    .title--h1 {
-      font-size: tools.rem(60);
-    }
-
-    .title--h2 {
-      font-size: tools.rem(48);
-    }
-
-    .title--h3 {
+    &.title--h1 {
       font-size: tools.rem(36);
+
+      @include tools.respond-from(xlarge) {
+        font-size: tools.rem(60);
+      }
+    }
+
+    &.title--h2 {
+      font-size: tools.rem(28);
+
+      @include tools.respond-from(xlarge) {
+        font-size: tools.rem(48);
+      }
+    }
+
+    &.title--h3 {
+      font-size: tools.rem(20);
+
+      @include tools.respond-from(xlarge) {
+        font-size: tools.rem(36);
+      }
     }
     
-    .title--h4{
-      font-size: tools.rem(24);
+    &.title--h4{
+      font-size: tools.rem(18);
+
+      @include tools.respond-from(xlarge) {
+        font-size: tools.rem(24);
+      }
     }
   }
 }

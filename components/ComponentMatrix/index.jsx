@@ -4,6 +4,8 @@ import VideoBlock from 'components/VideoBlock';
 import React from 'react';
 import MatrixComponent from 'components/MatrixComponent';
 import styles from './ComponentMatrix.module.scss';
+import CallToActionBlock from 'components/CallToActionBlock';
+import GalleryBlock from 'components/GalleryBlock';
 
 const ComponentMatrix = ({ blocks = [] }) => {
   if (!blocks?.length) {
@@ -15,14 +17,24 @@ const ComponentMatrix = ({ blocks = [] }) => {
       {blocks.map((block, index) => {
         if (block.__typename === 'HeaderRecord') {
           return (
-            <MatrixComponent key={`${block.__typename}-${index}`}>
-              <Header title={block?.title} date={block?.datum} />
+            <MatrixComponent
+              key={`${block.__typename}-${index}`}
+              header={true}
+              even={index % 2 === 0}
+            >
+              <Header
+                title={block?.title}
+                image={block?.image}
+                logo={block?.logo}
+                date={block?.datum}
+                links={block?.links}
+              />
             </MatrixComponent>
           );
         }
         if (block.__typename === 'TextRecord') {
           return (
-            <MatrixComponent key={`${block.__typename}-${index}`}>
+            <MatrixComponent key={`${block.__typename}-${index}`} even={index % 2 === 0}>
               <TextBlock
                 title={block?.title}
                 key={`${block.__typename}-${index}`}
@@ -36,16 +48,22 @@ const ComponentMatrix = ({ blocks = [] }) => {
           );
         }
         if (block.__typename === 'GallerijRecord') {
-          // return <Gallerij key={index} {...block} />;
-          return null;
+          return (
+            <MatrixComponent key={`${block.__typename}-${index}`} even={index % 2 === 0}>
+              <GalleryBlock title={block?.title} text={block?.text} images={block?.images} />
+            </MatrixComponent>
+          );
         }
         if (block.__typename === 'CallToActionRecord') {
-          // return <CallToAction key={index} {...block} />;
-          return null;
+          return (
+            <MatrixComponent key={`${block.__typename}-${index}`} even={index % 2 === 0}>
+              <CallToActionBlock title={block?.title} text={block?.text} links={block?.links} />
+            </MatrixComponent>
+          );
         }
         if (block.__typename === 'VideoRecord') {
           return (
-            <MatrixComponent key={`${block.__typename}-${index}`}>
+            <MatrixComponent key={`${block.__typename}-${index}`} even={index % 2 === 0}>
               <VideoBlock title={block?.title} text={block?.text} youtubeId={block?.youtubeId} />
             </MatrixComponent>
           );

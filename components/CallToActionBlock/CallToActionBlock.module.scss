@@ -1,0 +1,25 @@
+.call-to-action-block {
+  background-color: #2a3d45;
+  padding: 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.call-to-action-block__wrapper {
+  max-width: 1024px;
+  color: #ebebeb;
+  text-align: center;
+}
+
+.call-to-action-block__links {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.call-to-action-block__link {
+  display: block;
+  margin: 0 20px;
+}

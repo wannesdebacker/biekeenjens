@@ -12,46 +12,58 @@ const Image = ({
   height,
   modShadow = true,
   modZoom = false,
-  fill,
+  fill = false,
   onClick,
   ...props
 }) => {
   const classes = classNames(styles['image'], !!modShadow && styles['image--shadow'], className);
 
   if (width && height) {
-    <div className={styles['image-wrapper']}>
-      <NextImage
-        src={src}
-        alt={alt}
-        className={classes}
-        {...props}
-        width={width}
-        height={height}
-        onClick={onClick}
-      />
-    </div>;
+    return (
+      <div className={styles['image-wrapper']}>
+        <NextImage
+          src={src}
+          alt={alt}
+          className={classes}
+          {...props}
+          width={width}
+          height={height}
+          onClick={onClick}
+        />
+      </div>
+    );
   }
 
   if (fill) {
-    <div className={styles['image-wrapper']}>
-      <NextImage
-        src={src}
-        alt={alt}
-        className={classes}
-        {...props}
-        layout="fill"
-        onClick={onClick}
-      />
-    </div>;
+    return (
+      <div className={styles['image-wrapper']}>
+        <NextImage
+          src={src}
+          alt={alt}
+          className={classes}
+          {...props}
+          layout="fill"
+          onClick={onClick}
+        />
+      </div>
+    );
+  }
+
+  if (!!modZoom) {
+    return (
+      <div className={styles['image-wrapper']}>
+        {!!modZoom && (
+          <Zoom>
+            <img src={src} alt={alt} className={classes} {...props} onClick={onClick} />
+          </Zoom>
+        )}
+      </div>
+    );
   }
 
   return (
     <div className={styles['image-wrapper']}>
-      {!!modZoom && (
-        <Zoom>
-          <img src={src} alt={alt} className={classes} {...props} onClick={onClick} />
-        </Zoom>
-      )}
+      <img src={src} alt={alt} className={classes} {...props} onClick={onClick} />
     </div>
   );
 };

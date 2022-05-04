@@ -36,7 +36,7 @@ const TextBlock = ({
             <Image
               src={image.url}
               alt={image.alt}
-              modZoom
+              modZoom={true}
               className={styles['text-block__image']}
             />
           </div>
