@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
 import Button from 'components/Button';
+const { SiteClient } = require('datocms-client');
 
 const CheckinBlock = ({ title, text }) => {
   const { query } = useRouter();
@@ -21,16 +22,56 @@ const CheckinBlock = ({ title, text }) => {
   const submitForm = useCallback((data, event) => {
     event.preventDefault();
     if (data) {
-      axios
-        .post('/api/checkin', data)
-        .then((data) => {
+      // axios
+      //   .post('/api/checkin', data)
+      //   .then((data) => {
+      //     setFormSubmitted(true);
+      //     setFormError(false);
+      //   })
+      //   .catch(() => {
+      //     setFormSubmitted(false);
+      //     setFormError(true);
+      //   });
+      try {
+        const { naam, dag, genodigden, honing } = data;
+
+        if (honing) {
           setFormSubmitted(true);
           setFormError(false);
-        })
-        .catch(() => {
-          setFormSubmitted(false);
-          setFormError(true);
-        });
+
+          return true;
+        }
+
+        if (naam !== '' && dag !== '' && genodigden !== '') {
+          async function addCheckin() {
+            const client = new SiteClient('9d2b3d2e2fbde10cef878925897c25');
+            const record = await client.items.create({
+              itemType: '218135', // model ID checkin
+              naam,
+              dag,
+              genodigden,
+            });
+
+            return record;
+          }
+
+          addCheckin();
+
+          setFormSubmitted(true);
+          setFormError(false);
+
+          return true;
+        }
+
+        setFormSubmitted(false);
+        setFormError(true);
+
+        return false;
+      } catch (error) {
+        setFormSubmitted(false);
+        setFormError(true);
+        return false;
+      }
     }
   }, []);
 
