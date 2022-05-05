@@ -13,7 +13,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 
 const Header = ({ className, title, logo, image, links = [], date, small = false }) => {
-  const classes = classNames(styles['header'], styles['header--small'], className);
+  const classes = classNames(styles['header'], small && styles['header--small'], className);
   const { locale } = useRouter();
 
   if (small) {
