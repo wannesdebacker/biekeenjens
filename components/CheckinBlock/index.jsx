@@ -1,7 +1,6 @@
 import Title from 'components/Title';
 import React, { useCallback, useState } from 'react';
 import styles from './CheckinBlock.module.scss';
-import axios from 'axios';
 import Text from 'components/Text';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
@@ -9,15 +8,17 @@ import classNames from 'classnames';
 import Button from 'components/Button';
 const { SiteClient } = require('datocms-client');
 
-const CheckinBlock = ({ title, text }) => {
+const CheckinBlock = ({ title, text, succesMessage }) => {
   const { query } = useRouter();
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formError, setFormError] = useState(false);
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
+  const watchGenodigden = watch('genodigden');
 
   const submitForm = useCallback((data, event) => {
     event.preventDefault();
@@ -33,7 +34,7 @@ const CheckinBlock = ({ title, text }) => {
       //     setFormError(true);
       //   });
       try {
-        const { naam, dag, genodigden, honing } = data;
+        const { naam, dag, genodigden, honing, otherguests } = data;
 
         if (honing) {
           setFormSubmitted(true);
@@ -50,6 +51,7 @@ const CheckinBlock = ({ title, text }) => {
               naam,
               dag,
               genodigden,
+              naamAndereGenodigden: otherguests,
             });
 
             return record;
@@ -162,6 +164,25 @@ const CheckinBlock = ({ title, text }) => {
                   className={styles['checkin-block__input']}
                 />
               </li>
+              {watchGenodigden && parseInt(watchGenodigden) > 1 && (
+                <li className={styles['checkin-block__list-item']}>
+                  <label htmlFor="otherguests" className={styles['checkin-block__label']}>
+                    Namen van andere genodigden
+                  </label>
+                  {errors.otherguests?.type === 'required' && (
+                    <span className={styles['checkin-block__error']}>
+                      Indien meerdere gasten, geef dan hier andere namen in.
+                    </span>
+                  )}
+                  <textarea
+                    id="otherguests"
+                    autoComplete="bieke-jens-otherguests"
+                    placeholder={'vb: Gerda Putmans, Willy Theunissen, Dirk Theunissen'}
+                    {...register('otherguests', { required: true })}
+                    className={styles['checkin-block__input']}
+                  />
+                </li>
+              )}
               <li
                 className={classNames(
                   styles['checkin-block__list-item'],
@@ -177,7 +198,9 @@ const CheckinBlock = ({ title, text }) => {
           </form>
         )}
         {formSubmitted && !formError && (
-          <div className={styles['checkin-block__success']}>{/* Dit moet uit cms komen */}</div>
+          <Text modWysiwyg className={styles['checkin-block__success']}>
+            {succesMessage}
+          </Text>
         )}
       </div>
     </div>

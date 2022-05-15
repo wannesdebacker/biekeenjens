@@ -23,7 +23,6 @@ const ComponentMatrix = ({ blocks = [] }) => {
               header={true}
               even={index % 2 === 0}
             >
-              {console.log(block)}
               <Header
                 title={block?.title}
                 image={block?.image}
@@ -76,7 +75,11 @@ const ComponentMatrix = ({ blocks = [] }) => {
         if (block.__typename === 'CheckinRecord') {
           return (
             <MatrixComponent key={`${block.__typename}-${index}`} even={index % 2 === 0}>
-              <CheckinBlock title={block?.title} text={block?.text} />
+              <CheckinBlock
+                title={block?.title}
+                text={block?.text}
+                succesMessage={block?.succesMessage}
+              />
             </MatrixComponent>
           );
         }
