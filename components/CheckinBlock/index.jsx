@@ -177,9 +177,7 @@ const CheckinBlock = ({ title, text }) => {
           </form>
         )}
         {formSubmitted && !formError && (
-          <div className={styles['checkin-block__success']}>
-            <Text modLarge>Je gegevens werden correct ingechecked</Text>
-          </div>
+          <div className={styles['checkin-block__success']}>{/* Dit moet uit cms komen */}</div>
         )}
       </div>
     </div>

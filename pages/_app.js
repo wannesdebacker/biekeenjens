@@ -8,7 +8,7 @@ import Footer from 'components/Footer';
 import { appWithTranslation } from 'next-i18next';
 
 function MyApp({ Component, pageProps, locale }) {
-  const { page, allPages } = pageProps.data || {};
+  const { page, allPages, footer } = pageProps.data || {};
 
   return (
     <>
@@ -26,7 +26,12 @@ function MyApp({ Component, pageProps, locale }) {
         <Navigation pages={allPages} />
         {locale}
         <Component {...pageProps} />
-        <Footer />
+        <Footer
+          field1={footer?.field1}
+          field2={footer?.field2}
+          field3={footer?.field3}
+          field4={footer?.field4}
+        />
       </LoadingProvider>
     </>
   );

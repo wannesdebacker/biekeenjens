@@ -3,7 +3,6 @@ import styles from './Header.module.scss';
 
 import Title from 'components/Title';
 import Button from 'components/Button';
-import Text from 'components/Text';
 import Image from 'components/Image';
 
 import { format } from 'date-fns';
@@ -12,7 +11,17 @@ import { nl, en } from 'date-fns/locale';
 import React from 'react';
 import { useRouter } from 'next/router';
 
-const Header = ({ className, title, logo, image, links = [], date, small = false }) => {
+const Header = ({
+  className,
+  title,
+  logo,
+  image,
+  links = [],
+  date,
+  date2,
+  titleSub,
+  small = false,
+}) => {
   const classes = classNames(styles['header'], small && styles['header--small'], className);
   const { locale } = useRouter();
 
@@ -46,9 +55,19 @@ const Header = ({ className, title, logo, image, links = [], date, small = false
               {title}
             </Title>
           )}
+          {!!titleSub && (
+            <Title className={styles['header__title__sub']} variant="h1" modLarge>
+              {titleSub}
+            </Title>
+          )}
           {!!date && (
             <Title variant={'h3'} className={styles['header__date']}>
               {format(new Date(date), 'do MMMM yyyy', { locale: locale === 'nl' ? nl : en })}
+            </Title>
+          )}
+          {!!date2 && (
+            <Title variant={'h3'} className={styles['header__date']}>
+              {format(new Date(date2), 'do MMMM yyyy', { locale: locale === 'nl' ? nl : en })}
             </Title>
           )}
         </div>
@@ -90,9 +109,19 @@ const Header = ({ className, title, logo, image, links = [], date, small = false
               {title}
             </Title>
           )}
+          {!!titleSub && (
+            <Title className={styles['header__title__sub']} variant="h1" modLarge>
+              {titleSub}
+            </Title>
+          )}
           {!!date && (
             <Title variant={'h3'} className={styles['header__date']}>
-              {format(new Date(date), 'do MMMM yyyy', { locale: locale === 'nl' ? nl : en })}
+              {format(new Date(date), 'dd MMMM yyyy', { locale: locale === 'nl' ? nl : en })}
+            </Title>
+          )}
+          {!!date2 && (
+            <Title variant={'h3'} className={styles['header__date']}>
+              {format(new Date(date2), 'do MMMM yyyy', { locale: locale === 'nl' ? nl : en })}
             </Title>
           )}
         </div>

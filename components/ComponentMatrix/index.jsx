@@ -23,11 +23,14 @@ const ComponentMatrix = ({ blocks = [] }) => {
               header={true}
               even={index % 2 === 0}
             >
+              {console.log(block)}
               <Header
                 title={block?.title}
                 image={block?.image}
                 logo={block?.logo}
                 date={block?.datum}
+                date2={block?.datum2}
+                titleSub={block?.titleSub}
                 links={block?.links}
                 small={block?.small}
               />

@@ -1,21 +1,21 @@
 import styles from './Footer.module.scss';
-import Link from 'next/link';
+import Text from 'components/Text';
 import Title from 'components/Title';
 
-const Footer = () => {
+const Footer = ({ field1, field2, field3, field4 }) => {
   return (
     <footer className={styles.footer}>
       <div className={styles['footer__wrapper']}>
         <div className={styles['footer__content']}>
-          <Title variant="h4">Bieke en Jens</Title>
+          <Title variant="h4">{field1}</Title>
         </div>
-        <div className={styles['footer__content']}>22/03/2022</div>
-        <div className={styles['footer__content']}>BE34 2342 4323 4323</div>
-        <div className={styles['footer__content']}>
-          <Link href={'/about_us'}>
-            <a className={styles['footer__link']}>Meer info</a>
-          </Link>
-        </div>
+        {!!field2 && <div className={styles['footer__content']}>{field2}</div>}
+        {!!field3 && <div className={styles['footer__content']}>{field3}</div>}
+        {!!field4 && (
+          <div className={styles['footer__content']}>
+            <Text modWysiwyg>{field4}</Text>
+          </div>
+        )}
       </div>
     </footer>
   );
