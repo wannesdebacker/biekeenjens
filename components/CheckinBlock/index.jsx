@@ -17,24 +17,20 @@ const CheckinBlock = ({ title, text, succesMessage }) => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      dag: 'gold',
+      aanwezig: 'yes',
+    },
+  });
   const watchGenodigden = watch('genodigden');
+  const watchAanwezig = watch('aanwezig');
 
   const submitForm = useCallback((data, event) => {
     event.preventDefault();
     if (data) {
-      // axios
-      //   .post('/api/checkin', data)
-      //   .then((data) => {
-      //     setFormSubmitted(true);
-      //     setFormError(false);
-      //   })
-      //   .catch(() => {
-      //     setFormSubmitted(false);
-      //     setFormError(true);
-      //   });
       try {
-        const { naam, dag, genodigden, honing, otherguests } = data;
+        const { aanwezig, naam, dag, genodigden, honing, otherguests } = data;
 
         if (honing) {
           setFormSubmitted(true);
@@ -43,16 +39,21 @@ const CheckinBlock = ({ title, text, succesMessage }) => {
           return true;
         }
 
-        if (naam !== '' && dag !== '' && genodigden !== '') {
+        const isAanwezig = aanwezig === 'yes';
+
+        if (!isAanwezig || (naam !== '' && dag !== '' && genodigden !== '')) {
           async function addCheckin() {
             const client = new SiteClient(process.env.NEXT_PUBLIC_DATOCMS_API_TOKEN);
             const record = await client.items.create({
               itemType: '218135', // model ID checkin
               naam,
-              dag,
-              genodigden,
-              naamAndereGenodigden: otherguests,
+              dag: isAanwezig ? dag : '',
+              genodigden: isAanwezig ? genodigden : '',
+              naamAndereGenodigden: isAanwezig ? otherguests : '',
+              aanwezig: isAanwezig ? 'ja' : 'nee',
             });
+
+            console.log({ naam, dag, genodigden, naamAndereGenodigden: otherguests, aanwezig });
 
             return record;
           }
@@ -87,6 +88,29 @@ const CheckinBlock = ({ title, text, succesMessage }) => {
           <form onSubmit={handleSubmit(submitForm)} className={styles['checkin-block__form']}>
             <ul className={styles['checkin-block__list']}>
               <li className={styles['checkin-block__list-item']}>
+                <div className={styles['checkin-block__label']}>Aanwezigheid</div>
+                <label className={styles['checking-block__input-label']}>
+                  <input
+                    type="radio"
+                    value="yes"
+                    name="aanwezigheid"
+                    className={styles['checkin-block__checkbox']}
+                    {...register('aanwezig', { required: true })}
+                  />
+                  <span className={styles['checkin-block__checkbox-label']}>Aanwezig</span>
+                </label>
+                <label className={styles['checking-block__input-label']}>
+                  <input
+                    type="radio"
+                    value="no"
+                    name="aanwezigheid"
+                    className={styles['checkin-block__checkbox']}
+                    {...register('aanwezig', { required: true })}
+                  />
+                  <span className={styles['checkin-block__checkbox-label']}>Niet aanwezig</span>
+                </label>
+              </li>
+              <li className={styles['checkin-block__list-item']}>
                 <label htmlFor="naam" className={styles['checkin-block__label']}>
                   Naam
                 </label>
@@ -101,98 +125,115 @@ const CheckinBlock = ({ title, text, succesMessage }) => {
                   className={styles['checkin-block__input']}
                 />
               </li>
-              {query?.day && (
-                <li
-                  className={styles['checkin-block__list-item']}
-                  style={{ visibilty: 'hidden', display: 'none' }}
-                >
-                  <label htmlFor="dag" className={styles['checkin-block__label']}>
-                    Dag
-                  </label>
-                  <input
-                    id="dag"
-                    value={query.day}
-                    type={'hidden'}
-                    autoComplete={'off'}
-                    {...register('dag', { required: true })}
-                    className={styles['checkin-block__input']}
-                  />
-                </li>
-              )}
-              {!query?.day && (
-                <li className={styles['checkin-block__list-item']}>
-                  <label htmlFor="dag" className={styles['checkin-block__label']}>
-                    Dag
-                  </label>
-                  {errors.dag?.type === 'required' && (
-                    <span className={styles['checkin-block__error']}>Day is required</span>
+              {watchAanwezig === 'yes' && (
+                <>
+                  {query?.day && (
+                    <li
+                      className={styles['checkin-block__list-item']}
+                      style={{ visibilty: 'hidden', display: 'none' }}
+                    >
+                      <label htmlFor="dag" className={styles['checkin-block__label']}>
+                        Dag
+                      </label>
+                      <input
+                        id="dag"
+                        value={query.day}
+                        type={'hidden'}
+                        autoComplete={'off'}
+                        {...register('dag', { required: true })}
+                        className={styles['checkin-block__input']}
+                      />
+                    </li>
                   )}
-                  <input
-                    id="dag"
-                    autoComplete="bieke-jens-dag"
-                    placeholder={'vb: donderdag'}
-                    {...register('dag', { required: true })}
-                    className={styles['checkin-block__input']}
-                  />
-                </li>
-              )}
-              <li className={styles['checkin-block__list-item']}>
-                <label htmlFor="genodigden" className={styles['checkin-block__label']}>
-                  Genodigden
-                </label>
-                {errors.genodigden?.type === 'required' && (
-                  <span className={styles['checkin-block__error']}>Genodigden is required</span>
-                )}
-                {errors.genodigden?.type === 'max' && (
-                  <span className={styles['checkin-block__error']}>
-                    Je kan maximum 20 genodigden uitnodigen
-                  </span>
-                )}
-                {errors.genodigden?.type === 'min' && (
-                  <span className={styles['checkin-block__error']}>
-                    Je moet minimaal 1 genodigde uitnodigen
-                  </span>
-                )}
-                <input
-                  id="genodigden"
-                  type={'number'}
-                  min={1}
-                  max={20}
-                  placeholder={'vb: 2'}
-                  autoComplete="bieke-jens-genodigden"
-                  {...register('genodigden', { required: true, min: 1, max: 20 })}
-                  className={styles['checkin-block__input']}
-                />
-              </li>
-              {watchGenodigden && parseInt(watchGenodigden) > 1 && (
-                <li className={styles['checkin-block__list-item']}>
-                  <label htmlFor="otherguests" className={styles['checkin-block__label']}>
-                    Namen van andere genodigden
-                  </label>
-                  {errors.otherguests?.type === 'required' && (
-                    <span className={styles['checkin-block__error']}>
-                      Indien meerdere gasten, geef dan hier andere namen in.
-                    </span>
+                  {!query?.day && (
+                    <>
+                      <li className={styles['checkin-block__list-item']}>
+                        <div className={styles['checkin-block__label']}>Dag</div>
+                        <label className={styles['checking-block__input-label']}>
+                          <input
+                            id="dag"
+                            type="radio"
+                            value="gold"
+                            autoComplete="bieke-jens-dag"
+                            className={styles['checkin-block__checkbox']}
+                            {...register('dag', { required: true })}
+                          />
+                          <span className={styles['checkin-block__checkbox-label']}>Vrijdag</span>
+                        </label>
+                        <label className={styles['checking-block__input-label']}>
+                          <input
+                            id="dag"
+                            type="radio"
+                            value="diamond"
+                            autoComplete="bieke-jens-dag"
+                            {...register('dag', { required: true })}
+                            className={styles['checkin-block__checkbox']}
+                          />
+                          <span className={styles['checkin-block__checkbox-label']}>Zaterdag</span>
+                        </label>
+                      </li>
+                    </>
                   )}
-                  <textarea
-                    id="otherguests"
-                    autoComplete="bieke-jens-otherguests"
-                    placeholder={'vb: Gerda Putmans, Willy Theunissen, Dirk Theunissen'}
-                    {...register('otherguests', { required: true })}
-                    className={styles['checkin-block__input']}
-                  />
-                </li>
+                  <li className={styles['checkin-block__list-item']}>
+                    <label htmlFor="genodigden" className={styles['checkin-block__label']}>
+                      Genodigden
+                    </label>
+                    {errors.genodigden?.type === 'required' && (
+                      <span className={styles['checkin-block__error']}>Genodigden is required</span>
+                    )}
+                    {errors.genodigden?.type === 'max' && (
+                      <span className={styles['checkin-block__error']}>
+                        Je kan maximum 20 genodigden uitnodigen
+                      </span>
+                    )}
+                    {errors.genodigden?.type === 'min' && (
+                      <span className={styles['checkin-block__error']}>
+                        Je moet minimaal 1 genodigde uitnodigen
+                      </span>
+                    )}
+                    <input
+                      id="genodigden"
+                      type={'number'}
+                      min={1}
+                      max={20}
+                      placeholder={'vb: 2'}
+                      autoComplete="bieke-jens-genodigden"
+                      {...register('genodigden', { required: true, min: 1, max: 20 })}
+                      className={styles['checkin-block__input']}
+                    />
+                  </li>
+                  {watchGenodigden && parseInt(watchGenodigden) > 1 && (
+                    <li className={styles['checkin-block__list-item']}>
+                      <label htmlFor="otherguests" className={styles['checkin-block__label']}>
+                        Namen van andere genodigden
+                      </label>
+                      {errors.otherguests?.type === 'required' && (
+                        <span className={styles['checkin-block__error']}>
+                          Indien meerdere gasten, geef dan hier andere namen in.
+                        </span>
+                      )}
+                      <textarea
+                        id="otherguests"
+                        autoComplete="bieke-jens-otherguests"
+                        placeholder={'vb: Gerda Putmans, Willy Theunissen, Dirk Theunissen'}
+                        {...register('otherguests', { required: true })}
+                        className={styles['checkin-block__input']}
+                      />
+                    </li>
+                  )}
+                  <li
+                    className={classNames(
+                      styles['checkin-block__list-item'],
+                      styles['checkin-block__list-item--honing'],
+                    )}
+                  >
+                    <input type="text" {...register('honing')} />
+                  </li>
+                </>
               )}
-              <li
-                className={classNames(
-                  styles['checkin-block__list-item'],
-                  styles['checkin-block__list-item--honing'],
-                )}
-              >
-                <input type="text" {...register('honing')} />
-              </li>
+
               <li className={styles['checkin-block__list-item']}>
-                <Button type={'submit'}>Submit</Button>
+                <Button type={'submit'}>Verzenden</Button>
               </li>
             </ul>
           </form>

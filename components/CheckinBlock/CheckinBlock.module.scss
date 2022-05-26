@@ -52,6 +52,24 @@
   padding-bottom: tools.rem(5);
 }
 
+.checking-block__input-label {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: tools.rem(20);
+  margin-bottom: tools.rem(5);
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.checkin-block__checkbox {
+  display: inline-block;
+  font-size: tools.rem(20);
+  margin: 0 tools.rem(5) 0;
+}
+
 .checkin-block__input {
   width: 100%;
   border: 1px solid #ccc;
