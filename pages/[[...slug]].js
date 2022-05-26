@@ -18,11 +18,11 @@ export default function Home({ data }) {
     return null;
   }
 
-  const { page } = data;
+  const { page, packages } = data;
 
   return (
     <Page>
-      <ComponentMatrix blocks={page?.blocks} />
+      <ComponentMatrix blocks={page?.blocks} packages={packages} />
     </Page>
   );
 }

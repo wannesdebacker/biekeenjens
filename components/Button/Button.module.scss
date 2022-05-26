@@ -62,6 +62,13 @@
       background-color: darken(#2a3d45, 20%);
     }
   }
+
+  &[disabled] {
+    opacity: .75;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
 }
 
 a.button {

@@ -1967,6 +1967,11 @@ i18next@^21.6.14:
   dependencies:
     "@babel/runtime" "^7.17.2"
 
+iban@0.0.11:
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/iban/-/iban-0.0.11.tgz#b67e642b6f1d96aa25e280fbc30ecd974c2fa073"
+  integrity sha512-9X0t/S+c6vBdgq3Hrt55HAonXfPmGuO/Vz507lXwQh+F5/0psvZWfh9jD14NvNYAfggk8WrYCWNvLVpCWLWdUQ==
+
 ignore@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.2.0.tgz#6d3bac8fa7fe0d45d9f9be7bac2fc279577e345a"
@@ -3137,7 +3142,7 @@ promise-limit@^2.7.0:
   resolved "https://registry.yarnpkg.com/promise-limit/-/promise-limit-2.7.0.tgz#eb5737c33342a030eaeaecea9b3d3a93cb592b26"
   integrity sha512-7nJ6v5lnJsXwGprnGXga4wx6d1POjvi5Qmf1ivTRxTjH4Z/9Czja/UCMLVmB9N93GeWOU93XaFaEt6jbuoagNw==
 
-prop-types@^15.0.0, prop-types@^15.8.1:
+prop-types@^15.0.0, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -3178,6 +3183,11 @@ pusher-js@^5.0.3:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/pusher-js/-/pusher-js-5.1.1.tgz#267495d3a821d511bdb20cf3c624ba0556e0b7df"
   integrity sha512-f2tdoA7NvJQkU8Y/iCH25ZSNGxnwCXrVbwos38isX6gnjsSZ1aksWvyZddm2N0sHJWyl+oPBz/MzU5cevVDyEQ==
+
+qr.js@0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/qr.js/-/qr.js-0.0.0.tgz#cace86386f59a0db8050fa90d9b6b0e88a1e364f"
+  integrity sha1-ys6GOG9ZoNuAUPqQ2baw6IoeNk8=
 
 qs@^6.6.0, qs@^6.9.1, qs@^6.9.4:
   version "6.10.3"
@@ -3269,6 +3279,14 @@ react-medium-image-zoom@^4.3.7:
     focus-options-polyfill "1.2.0"
     react-use "^17.2.1"
     tslib "^2.1.0"
+
+react-qr-code@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/react-qr-code/-/react-qr-code-2.0.7.tgz#508304e031e82426a044f5e9490aca87d7c3de38"
+  integrity sha512-NpknL80p7dWbLdHfBSIxQIqLCu3+kBlyzYD692rO0UnVwfCSziIxc1xn/p3JhPEv1RV1lRD8j0w+hR3L7tawTQ==
+  dependencies:
+    prop-types "^15.7.2"
+    qr.js "0.0.0"
 
 react-universal-interface@^0.6.2:
   version "0.6.2"
@@ -3518,6 +3536,13 @@ semver@^7.3.5:
   integrity sha512-QlYTucUYOews+WeEujDoEGziz4K6c47V/Bd+LjSSYcA94p+DmINdf7ncaUinThfvZyu13lN9OY1XDxt8C0Tw0g==
   dependencies:
     lru-cache "^6.0.0"
+
+sepa-payment-code@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/sepa-payment-code/-/sepa-payment-code-1.0.3.tgz#c4cb795fdf9ab3ef5b75ce00952a2a8704ce85b1"
+  integrity sha512-6jc2dSU1/AjIp7SlNTLIcLFMyFTOWFTGd6e56LrbZSIu/5D1LRwBDehwDBT2aNmmp3yHZA17Cu2dR4pPqZgatA==
+  dependencies:
+    iban "0.0.11"
 
 set-harmonic-interval@^1.0.1:
   version "1.0.1"

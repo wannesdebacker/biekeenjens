@@ -7,8 +7,9 @@ import styles from './ComponentMatrix.module.scss';
 import CallToActionBlock from 'components/CallToActionBlock';
 import GalleryBlock from 'components/GalleryBlock';
 import CheckinBlock from 'components/CheckinBlock';
+import PackageBlock from 'components/PackageBlock';
 
-const ComponentMatrix = ({ blocks = [] }) => {
+const ComponentMatrix = ({ blocks = [], packages = [] }) => {
   if (!blocks?.length) {
     return null;
   }
@@ -82,6 +83,16 @@ const ComponentMatrix = ({ blocks = [] }) => {
               />
             </MatrixComponent>
           );
+        }
+        if (block.__typename === 'PackageBlockRecord') {
+          return <div></div>;
+
+          // return (
+          //   <MatrixComponent key={`${block.__typename}-${index}`} even={index % 2 === 0}>
+          //     {console.log(block)}
+          //     <PackageBlock packages={packages} title={block?.title} text={block?.text} />
+          //   </MatrixComponent>
+          // );
         }
         return <div key={`notfound--${index}`}></div>;
       })}

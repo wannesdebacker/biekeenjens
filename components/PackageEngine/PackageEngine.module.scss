@@ -1,0 +1,37 @@
+@use '/scss/tools/' as tools;
+
+.package {
+  display: flex;
+  flex-direction: column;
+  max-width: tools.rem(300);
+  margin: 0;
+  padding: 0;
+
+  &--active {
+    background-color: red;
+  }
+}
+
+.package__image {
+  max-width: 100%;
+}
+
+.packages {
+  display: flex;
+}
+
+.packages__list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+
+  @include tools.respond-from(large) {
+    display: grid; 
+    grid-auto-rows: 1fr; 
+    grid-template-columns: 25% 25% 25% 25%; 
+    grid-template-rows: 1fr; 
+    gap: tools.rem(20) tools.rem(20); 
+    grid-template-areas: 
+      ". . . ."; 
+    }
+}

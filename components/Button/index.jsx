@@ -10,6 +10,7 @@ const Button = ({
   modAlt,
   modDark,
   onClick = null,
+  ...props
 }) => {
   const classes = classNames(
     styles['button'],
@@ -20,7 +21,7 @@ const Button = ({
 
   if (modWrapper) {
     return (
-      <div className={classes} onClick={onClick}>
+      <div className={classes} onClick={onClick} {...props}>
         {children}
       </div>
     );
@@ -28,14 +29,14 @@ const Button = ({
 
   if (href) {
     return (
-      <Link href={href}>
+      <Link href={href} {...props}>
         <a className={classes}>{children}</a>
       </Link>
     );
   }
 
   return (
-    <button onClick={onClick} className={classes}>
+    <button onClick={onClick} className={classes} {...props}>
       {children}
     </button>
   );
