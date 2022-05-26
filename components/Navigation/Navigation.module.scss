@@ -1,3 +1,4 @@
+@use '/scss/settings/' as settings;
 @use '/scss/tools/' as tools;
 
 .navigation {
@@ -6,6 +7,36 @@
   top: 0;
   width: 100%;
   z-index: 5;
+
+  &--mobile {
+    z-index: 10;
+  }
+}
+
+.navigation__nav {
+  .navigation--visible & {
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+    background-color: settings.$white;
+    padding: 0;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+
+    @include tools.respond-from(medium) {
+      position: relative;
+      display: block;
+      background: transparent;
+    }
+  }
 }
 
 .navigation__container {
@@ -16,13 +47,25 @@
 }
 
 .navigation__items {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   margin: 0;
   padding: 0;
-  display: flex;
-  padding-right: tools.rem(10);
+  justify-content: center;
 
-  @include tools.respond-from(large) {
+  @include tools.respond-from(medium) {
     padding-right: tools.rem(25);
+    background: none;
+    position: relative;
+    flex-direction: initial;
+    justify-content: initial;
+    text-align: left;
+    align-items: initial;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
   }
 }
 
@@ -30,16 +73,36 @@
   display: block;
 }
 
+.navigation__menu-button {
+  display: block;
+  border: 0;
+  appearance: none;
+  width: tools.rem(50);
+  height: tools.rem(50);
+  color: settings.$white;
+  background-color: transparent;
+}
+
+.navigation__menu-button__icon {
+  fill: currentColor;
+  height: tools.rem(50);
+  height: tools.rem(50);
+}
+
 .navigation__link {
   position: relative;
   padding: tools.rem(10);
-  color: #EBEBEB;
+  color: settings.$white;
   text-decoration: none;
   text-transform: uppercase;
-  font-size: tools.rem(12);
+  font-size: tools.rem(20);
   display: block;
 
-  @include tools.respond-from(large) {
+  .navigation--mobile & {
+    color: settings.$gray;
+  }
+
+  @include tools.respond-from(medium) {
     font-size: 20px;
     padding: tools.rem(25) tools.rem(25) tools.rem(20) tools.rem(25);
   }
@@ -72,4 +135,26 @@
       opacity: 1;
     }
   }
+}
+
+.navigation__close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: tools.rem(50);
+  height: tools.rem(50);
+  color: settings.$white;
+  border: 0;
+  appearance: none;
+  cursor: pointer;
+  z-index: 10;
+  margin: tools.rem(20);
+  padding: tools.rem(10);
+  box-sizing: border-box;
+}
+
+.navigation__close-button__icon {
+  width: 100%;
+  max-height: 50px;
+  fill: settings.$darkgray;
 }

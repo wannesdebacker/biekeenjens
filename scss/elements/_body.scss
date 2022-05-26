@@ -1,6 +1,26 @@
+@use '/scss/settings/' as settings;
+@use '/scss/tools/' as tools;
+
 body {
   font-family: 'Source Sans Pro', sans-serif;
   background-color: #EBEBEB;
   margin: 0;
   position: relative;
+
+  &::after {
+    display: none;
+    content: 'xsmall';
+
+    @include tools.respond-from(small) {
+      content: 'small';
+    }
+
+    @include tools.respond-from(medium) {
+      content: 'medium';
+    }
+
+    @include tools.respond-from(large) {
+      content: 'large';
+    }
+  }
 }

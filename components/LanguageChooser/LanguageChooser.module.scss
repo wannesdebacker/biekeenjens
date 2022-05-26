@@ -8,7 +8,10 @@
   display: flex;
   margin: 0;
   padding: 0;
-  padding-right: tools.rem(30);
+  
+  @include tools.respond-from(large) {
+    padding-right: tools.rem(30);
+  }
 }
 
 .language-chooser__item {
@@ -22,9 +25,10 @@
     text-decoration: none;
     text-transform: uppercase;
     font-size: tools.rem(12);
-    display: block;
+    display: none;
 
-    @include tools.respond-from(large) {
+    @include tools.respond-from(medium) {
+      display: block;
       font-size: 20px;
       padding: tools.rem(25) tools.rem(0) tools.rem(20) tools.rem(0);
     }
@@ -45,13 +49,13 @@
 .language-chooser__link {
   position: relative;
   padding: tools.rem(10);
-  color: #EBEBEB;
   text-decoration: none;
   text-transform: uppercase;
   font-size: tools.rem(12);
   display: block;
 
-  @include tools.respond-from(large) {
+  @include tools.respond-from(medium) {
+    color: #EBEBEB;
     font-size: 20px;
     padding: tools.rem(25) tools.rem(0) tools.rem(20) tools.rem(0);
   }
