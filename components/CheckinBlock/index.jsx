@@ -6,12 +6,15 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
 import Button from 'components/Button';
+import { useTranslation } from 'next-i18next';
+
 const { SiteClient } = require('datocms-client');
 
 const CheckinBlock = ({ title, text, succesMessage }) => {
   const { query } = useRouter();
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formError, setFormError] = useState(false);
+  const { t } = useTranslation('common');
   const {
     register,
     handleSubmit,
@@ -53,8 +56,6 @@ const CheckinBlock = ({ title, text, succesMessage }) => {
               aanwezig: isAanwezig ? 'ja' : 'nee',
             });
 
-            console.log({ naam, dag, genodigden, naamAndereGenodigden: otherguests, aanwezig });
-
             return record;
           }
 
@@ -88,7 +89,9 @@ const CheckinBlock = ({ title, text, succesMessage }) => {
           <form onSubmit={handleSubmit(submitForm)} className={styles['checkin-block__form']}>
             <ul className={styles['checkin-block__list']}>
               <li className={styles['checkin-block__list-item']}>
-                <div className={styles['checkin-block__label']}>Aanwezigheid</div>
+                <div className={styles['checkin-block__label']}>
+                  {t('forms.availability.label')}
+                </div>
                 <label className={styles['checking-block__input-label']}>
                   <input
                     type="radio"
@@ -97,7 +100,9 @@ const CheckinBlock = ({ title, text, succesMessage }) => {
                     className={styles['checkin-block__checkbox']}
                     {...register('aanwezig', { required: true })}
                   />
-                  <span className={styles['checkin-block__checkbox-label']}>Aanwezig</span>
+                  <span className={styles['checkin-block__checkbox-label']}>
+                    {t('forms.availability.available')}
+                  </span>
                 </label>
                 <label className={styles['checking-block__input-label']}>
                   <input
@@ -107,15 +112,19 @@ const CheckinBlock = ({ title, text, succesMessage }) => {
                     className={styles['checkin-block__checkbox']}
                     {...register('aanwezig', { required: true })}
                   />
-                  <span className={styles['checkin-block__checkbox-label']}>Niet aanwezig</span>
+                  <span className={styles['checkin-block__checkbox-label']}>
+                    {t('forms.availability.unavailable')}
+                  </span>
                 </label>
               </li>
               <li className={styles['checkin-block__list-item']}>
                 <label htmlFor="naam" className={styles['checkin-block__label']}>
-                  Naam
+                  {t('forms.name.label')}
                 </label>
                 {errors.naam?.type === 'required' && (
-                  <span className={styles['checkin-block__error']}>Naam is required</span>
+                  <span className={styles['checkin-block__error']}>
+                    {t('forms.generic.required', { field: t('forms.name.label') })}
+                  </span>
                 )}
                 <input
                   id="naam"
@@ -148,7 +157,7 @@ const CheckinBlock = ({ title, text, succesMessage }) => {
                   {!query?.day && (
                     <>
                       <li className={styles['checkin-block__list-item']}>
-                        <div className={styles['checkin-block__label']}>Dag</div>
+                        <div className={styles['checkin-block__label']}>{t('forms.day.label')}</div>
                         <label className={styles['checking-block__input-label']}>
                           <input
                             id="dag"
@@ -158,7 +167,9 @@ const CheckinBlock = ({ title, text, succesMessage }) => {
                             className={styles['checkin-block__checkbox']}
                             {...register('dag', { required: true })}
                           />
-                          <span className={styles['checkin-block__checkbox-label']}>Vrijdag</span>
+                          <span className={styles['checkin-block__checkbox-label']}>
+                            {t('forms.day.friday')}
+                          </span>
                         </label>
                         <label className={styles['checking-block__input-label']}>
                           <input
@@ -169,26 +180,30 @@ const CheckinBlock = ({ title, text, succesMessage }) => {
                             {...register('dag', { required: true })}
                             className={styles['checkin-block__checkbox']}
                           />
-                          <span className={styles['checkin-block__checkbox-label']}>Zaterdag</span>
+                          <span className={styles['checkin-block__checkbox-label']}>
+                            {t('forms.day.saturday')}
+                          </span>
                         </label>
                       </li>
                     </>
                   )}
                   <li className={styles['checkin-block__list-item']}>
                     <label htmlFor="genodigden" className={styles['checkin-block__label']}>
-                      Genodigden
+                      {t('forms.guests.label')}
                     </label>
                     {errors.genodigden?.type === 'required' && (
-                      <span className={styles['checkin-block__error']}>Genodigden is required</span>
+                      <span className={styles['checkin-block__error']}>
+                        {t('forms.generic.required', { field: t('forms.guests.label') })}
+                      </span>
                     )}
                     {errors.genodigden?.type === 'max' && (
                       <span className={styles['checkin-block__error']}>
-                        Je kan maximum 20 genodigden uitnodigen
+                        {t('forms.guests.max')}
                       </span>
                     )}
                     {errors.genodigden?.type === 'min' && (
                       <span className={styles['checkin-block__error']}>
-                        Je moet minimaal 1 genodigde uitnodigen
+                        {t('forms.guests.min')}
                       </span>
                     )}
                     <input
@@ -206,10 +221,11 @@ const CheckinBlock = ({ title, text, succesMessage }) => {
                     <li className={styles['checkin-block__list-item']}>
                       <label htmlFor="otherguests" className={styles['checkin-block__label']}>
                         Namen van andere genodigden
+                        {t('forms.otherGuests.label')}
                       </label>
                       {errors.otherguests?.type === 'required' && (
                         <span className={styles['checkin-block__error']}>
-                          Indien meerdere gasten, geef dan hier andere namen in.
+                          {t('forms.otherGuests.sublabel')}
                         </span>
                       )}
                       <textarea
@@ -233,7 +249,7 @@ const CheckinBlock = ({ title, text, succesMessage }) => {
               )}
 
               <li className={styles['checkin-block__list-item']}>
-                <Button type={'submit'}>Verzenden</Button>
+                <Button type={'submit'}>{t('forms.submit')}</Button>
               </li>
             </ul>
           </form>

@@ -1,0 +1,30 @@
+{
+  "forms": {
+    "generic": {
+      "required": "{{field}} is required"
+    },
+    "name": {
+      "label": "Name"
+    },
+    "availability": {
+      "label": "Availability",
+      "available": "Available",
+      "unavailable": "Unavailable"
+    },
+    "day": {
+      "label": "Day",
+      "friday": "Friday",
+      "saturday": "Saturday"
+    },
+    "guests": {
+      "label": "Guests",
+      "min": "You have to book for minimum one guest",
+      "max": "You can only book for 20 guests at most"
+    },
+    "otherGuests": {
+      "label": "Names of the other guests",
+      "sublabel": "Write the names of the other guests coming"
+    },
+    "submit": "Submit"
+  }
+}

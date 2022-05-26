@@ -1,0 +1,30 @@
+{
+  "forms": {
+    "generic": {
+      "required": "{{field}} is verplicht"
+    },
+    "name": {
+      "label": "Naam"
+    },
+    "availability": {
+      "label": "Aanwezigheid",
+      "available": "Aanwezig",
+      "unavailable": "Afwezig"
+    },
+    "day": {
+      "label": "Dag",
+      "friday": "Vrijdag",
+      "saturday": "Zaterdag"
+    },
+    "guests": {
+      "label": "Aanwezigheid",
+      "min": "Je moet minstens 1 iemand ingeven",
+      "max": "Je kan maximaal 20 gasten ingeven"
+    },
+    "otherGuests": {
+      "label": "Namen van de andere gasten",
+      "sublabel": "Vul hieronder de namen van de andere gasten in"
+    },
+    "submit": "Verzend"
+  }
+}
