@@ -121,7 +121,7 @@ const Header = ({
           )}
           {!!date2 && (
             <Title variant={'h3'} className={styles['header__date']}>
-              {format(new Date(date2), 'do MMMM yyyy', { locale: locale === 'nl' ? nl : en })}
+              {format(new Date(date2), 'dd MMMM yyyy', { locale: locale === 'nl' ? nl : en })}
             </Title>
           )}
         </div>
