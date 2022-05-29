@@ -6,7 +6,7 @@ import classNames from 'classnames';
 
 import styles from './PackageBlock.module.scss';
 
-const PackageBlock = ({ title, text, packages = [] }) => {
+const PackageBlock = ({ title, text, iban, packages = [], paymentInstructions }) => {
   const classes = classNames(styles['package-block']);
 
   return (
@@ -20,7 +20,7 @@ const PackageBlock = ({ title, text, packages = [] }) => {
             </Text>
           )}
         </div>
-        <PackageEngine packages={packages} />
+        <PackageEngine packages={packages} iban={iban} paymentInstructions={paymentInstructions} />
       </div>
     </div>
   );

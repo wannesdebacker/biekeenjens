@@ -25,6 +25,16 @@
       "label": "Names of the other guests",
       "sublabel": "Write the names of the other guests coming"
     },
-    "submit": "Submit"
+    "submit": "Submit",
+    "generate_qr_code": "Generate QR code"
+  },
+  "package": {
+    "total_amount_items": "You added {{items}} items",
+    "total_amount_price": "Total amount: €{{price}}",
+    "to_cart": "View cart",
+    "generate_payment": "Generate payment",
+    "fallback": "Or transfer €{{price}} over to {{iban}}.",
+    "next_step": "Next step",
+    "previous_step": "Previous step"
   }
 }

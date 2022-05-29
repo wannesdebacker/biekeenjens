@@ -85,14 +85,17 @@ const ComponentMatrix = ({ blocks = [], packages = [] }) => {
           );
         }
         if (block.__typename === 'PackageBlockRecord') {
-          return <div></div>;
-
-          // return (
-          //   <MatrixComponent key={`${block.__typename}-${index}`} even={index % 2 === 0}>
-          //     {console.log(block)}
-          //     <PackageBlock packages={packages} title={block?.title} text={block?.text} />
-          //   </MatrixComponent>
-          // );
+          return (
+            <MatrixComponent key={`${block.__typename}-${index}`} even={index % 2 === 0}>
+              <PackageBlock
+                packages={packages}
+                title={block?.title}
+                text={block?.text}
+                iban={block?.rekeningnummer}
+                paymentInstructions={block?.paymentInstructions}
+              />
+            </MatrixComponent>
+          );
         }
         return <div key={`notfound--${index}`}></div>;
       })}

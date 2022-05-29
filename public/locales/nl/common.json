@@ -25,6 +25,16 @@
       "label": "Namen van de andere gasten",
       "sublabel": "Vul hieronder de namen van de andere gasten in"
     },
-    "submit": "Verzend"
+    "submit": "Verzend",
+    "generate_qr_code": "Generate QR code"
+  },
+  "package": {
+    "total_amount_items": "Je voegde {{items}} items toe.",
+    "total_amount_price": "Totaal bedrag: €{{price}}",
+    "to_cart": "Bekijk winkelmandje",
+    "generate_payment": "Ga naar betaling",
+    "fallback": "Of schrijf €{{price}} over naar {{iban}}.",
+    "next_step": "Vorige stap",
+    "previous_step": "Volgende stap"
   }
 }

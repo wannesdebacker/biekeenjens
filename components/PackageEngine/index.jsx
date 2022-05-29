@@ -10,7 +10,7 @@ import Button from 'components/Button';
 import { PaymentCode } from 'sepa-payment-code';
 import QRCode from 'react-qr-code';
 
-const PackageEngine = ({ packages = [] }) => {
+const PackageEngine = ({ packages = [], iban = '', paymentInstructions }) => {
   const { register, handleSubmit, errors, watch } = useForm();
   const { t } = useTranslation('common');
   const [activePane, setActivePane] = useState('1');
@@ -49,54 +49,77 @@ const PackageEngine = ({ packages = [] }) => {
   );
 
   const paymentCode = useMemo(() => {
-    if (totalPrice) {
-      return new PaymentCode('Name', 'BE72000000001616', totalPrice);
+    if (totalPrice && iban) {
+      return new PaymentCode('Bieke en Jens', iban, totalPrice);
     }
 
     return null;
-  }, [totalPrice]);
+  }, [totalPrice, iban]);
 
   if (activePane === '2') {
     return (
       <div className={styles['package-engine']}>
-        {activePackages?.map(({ id, title, price, image }) => (
-          <div key={`${id}-cart`}>{title}</div>
-        ))}
-        {totalPrice}
+        <div className={styles['package-engine__result']}>
+          <ul className={styles['package-engine__items']}>
+            {activePackages?.map(({ id, title, price, image }) => (
+              <li className={styles['package-engine__item']} key={`${id}-cart`}>
+                {title && (
+                  <Title className={styles['package__title']} variant="h4">
+                    {title}
+                  </Title>
+                )}
+                {image && (
+                  <Image
+                    src={image?.url}
+                    alt={image?.alt}
+                    className={styles['package__image']}
+                    modShadow={false}
+                  />
+                )}
+                {price && <Text className={styles['package__price']}>{price}</Text>}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className={styles['package__qr-price']}>{totalPrice}</div>
+        {!!totalPrice && (
+          <>
+            <div
+              className={classNames(styles['packages__footer'], styles['packages__footer--block'])}
+            >
+              <strong>{t('package.total_amount_price', { price: totalPrice })}</strong>
+              <div>
+                <Button onClick={setShowQr} type="button">
+                  {t('forms.generate_qr_code')}
+                </Button>
+              </div>
+            </div>
+            <div className={styles['package__qr-wrapper']}>
+              <div>
+                {showQr && paymentCode && (
+                  <div className={styles['package__qr__instructions']}>
+                    <Text modWysiwyg>{paymentInstructions}</Text>
+                  </div>
+                )}
+                {showQr && paymentCode && (
+                  <div className={styles['package__qr']}>
+                    <QRCode value={paymentCode?.getPayload()} />
+                  </div>
+                )}
+                {showQr && paymentCode && (
+                  <Text>{t('package.fallback', { price: totalPrice, iban })}</Text>
+                )}
+              </div>
+            </div>
+          </>
+        )}
         <Button
           onClick={() => {
             setActivePane('1');
           }}
         >
-          {t('back')}
+          {t('package.previous_step')}
         </Button>
-        <Button
-          onClick={() => {
-            setActivePane('3');
-          }}
-        >
-          {t('go_to_payment')}
-        </Button>
-      </div>
-    );
-  }
-
-  if (activePane === '3') {
-    return (
-      <div className={styles['package-engine']}>
-        <Button
-          onClick={() => {
-            setActivePane('2');
-          }}
-        >
-          {t('back')}
-        </Button>
-        <Button onClick={setShowQr} type="button">
-          Generate QR code
-        </Button>
-        <div style={{ background: 'white', padding: '16px' }}>
-          {showQr && paymentCode && <QRCode value={paymentCode?.getPayload()} />}
-        </div>
       </div>
     );
   }
@@ -113,11 +136,10 @@ const PackageEngine = ({ packages = [] }) => {
                 !!packageActive(id) && styles['package--active'],
               )}
             >
-              <label htmlFor={`package-${id}`}>
+              <label htmlFor={`package-${id}`} className={styles['package__label']}>
                 <div className={styles['package__wrapper']}>
                   {title && <Title className={styles['package__title']}>{title}</Title>}
-                  {description && <Text className={styles['package__title']}>{description}</Text>}
-                  {price && <Text className={styles['package__price']}>{price}</Text>}
+                  {description && <Text className={styles['package__text']}>{description}</Text>}
                   {image && (
                     <Image
                       src={image?.url}
@@ -126,22 +148,32 @@ const PackageEngine = ({ packages = [] }) => {
                       modShadow={false}
                     />
                   )}
+                  {price && <Text className={styles['package__price']}>{price}</Text>}
                 </div>
                 <input
                   id={`package-${id}`}
                   type="checkbox"
                   value={id}
+                  className={styles['package__checkbox']}
                   {...register('package', { required: true })}
                 />
               </label>
             </li>
           ))}
         </ul>
-        <div>
-          <Button type="submit" disabled={!activePackages?.length}>
-            {t('forms.submit')}
-          </Button>
-        </div>
+        {!!totalPrice && (
+          <div className={styles['packages__footer']}>
+            <div>
+              {t('package.total_amount_items', { items: activePackages?.length })} -{' '}
+              <strong>{t('package.total_amount_price', { price: totalPrice })}</strong>
+            </div>
+            <div>
+              <Button type="submit" disabled={!activePackages?.length}>
+                {t('package.to_cart')}
+              </Button>
+            </div>
+          </div>
+        )}
       </form>
     </div>
   );
