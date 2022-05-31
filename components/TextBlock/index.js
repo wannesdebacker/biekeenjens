@@ -26,7 +26,7 @@ const TextBlock = ({
         <div className={styles['text-block__text-wrapper']}>
           {title && <Title className={styles['text-block__title']}>{title}</Title>}
           {children && (
-            <Text modWysiwyg className={styles['text-block__text']}>
+            <Text modStructured className={styles['text-block__text']}>
               {children}
             </Text>
           )}

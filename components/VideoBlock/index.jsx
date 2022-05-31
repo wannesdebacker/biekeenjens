@@ -18,7 +18,7 @@ const VideoBlock = ({ title, text, youtubeId, className }) => {
               {title}
             </Title>
           )}
-          {!!text && <Text modWysiwyg>{text}</Text>}
+          {!!text && <Text modStructured>{text}</Text>}
         </div>
         {!!youtubeId && <Video youtubeId={youtubeId} />}
       </div>

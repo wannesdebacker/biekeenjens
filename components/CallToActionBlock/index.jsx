@@ -14,7 +14,7 @@ const CallToActionBlock = ({ title, text, links }) => {
           </Title>
         )}
         {text && (
-          <Text modWysiwyg className={styles['call-to-action-block__text']}>
+          <Text modStructured className={styles['call-to-action-block__text']}>
             {text}
           </Text>
         )}

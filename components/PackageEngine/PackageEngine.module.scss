@@ -11,6 +11,7 @@
   border: tools.rem(4) solid settings.$white;
   background: settings.$white;
   cursor: pointer;
+  margin-bottom: tools.rem(20);
 
   &--active {
     background-color: settings.$white;
@@ -104,16 +105,27 @@
 }
 
 .packages__list {
-  display: flex;
   margin: 0;
   padding: 0;
+  display: grid; 
+  grid-auto-rows: 1fr; 
+  grid-template-columns: 1fr 1fr; 
+  grid-template-rows: 1fr; 
+  grid-template-areas: 
+    ". ."; 
+  grid-column-gap: tools.rem(20);
+  margin: 0 tools.rem(20);
+
+  @include tools.respond-from(medium) {
+    grid-template-columns: 1fr 1fr 1fr; 
+    grid-template-areas: 
+      ". . ."; 
+    grid-column-gap: tools.rem(20);
+    margin: auto;
+  }
 
   @include tools.respond-from(large) {
-    display: grid; 
-    grid-auto-rows: 1fr; 
-    grid-template-columns: 25% 25% 25% 25%; 
-    grid-template-rows: 1fr; 
-    gap: tools.rem(20) tools.rem(20); 
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-areas: 
       ". . . ."; 
     }

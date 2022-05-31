@@ -15,7 +15,7 @@ const PackageBlock = ({ title, text, iban, packages = [], paymentInstructions })
         <div className={styles['package-block__text-wrapper']}>
           {title && <Title className={styles['package-block__title']}>{title}</Title>}
           {text && (
-            <Text modWysiwyg className={styles['package-block__text']}>
+            <Text modStructured className={styles['package-block__text']}>
               {text}
             </Text>
           )}

@@ -38,6 +38,9 @@ const ComponentMatrix = ({ blocks = [], packages = [] }) => {
           );
         }
         if (block.__typename === 'TextRecord') {
+          {
+            console.log(block);
+          }
           return (
             <MatrixComponent key={`${block.__typename}-${index}`} even={index % 2 === 0}>
               <TextBlock
@@ -47,7 +50,7 @@ const ComponentMatrix = ({ blocks = [], packages = [] }) => {
                 floatImage={block?.floatImage}
                 floatRight={block?.floatRight}
               >
-                {block?.text}
+                {block?.content}
               </TextBlock>
             </MatrixComponent>
           );
@@ -55,21 +58,21 @@ const ComponentMatrix = ({ blocks = [], packages = [] }) => {
         if (block.__typename === 'GallerijRecord') {
           return (
             <MatrixComponent key={`${block.__typename}-${index}`} even={index % 2 === 0}>
-              <GalleryBlock title={block?.title} text={block?.text} images={block?.images} />
+              <GalleryBlock title={block?.title} text={block?.content} images={block?.images} />
             </MatrixComponent>
           );
         }
         if (block.__typename === 'CallToActionRecord') {
           return (
             <MatrixComponent key={`${block.__typename}-${index}`} even={index % 2 === 0}>
-              <CallToActionBlock title={block?.title} text={block?.text} links={block?.links} />
+              <CallToActionBlock title={block?.title} text={block?.content} links={block?.links} />
             </MatrixComponent>
           );
         }
         if (block.__typename === 'VideoRecord') {
           return (
             <MatrixComponent key={`${block.__typename}-${index}`} even={index % 2 === 0}>
-              <VideoBlock title={block?.title} text={block?.text} youtubeId={block?.youtubeId} />
+              <VideoBlock title={block?.title} text={block?.content} youtubeId={block?.youtubeId} />
             </MatrixComponent>
           );
         }
@@ -78,7 +81,7 @@ const ComponentMatrix = ({ blocks = [], packages = [] }) => {
             <MatrixComponent key={`${block.__typename}-${index}`} even={index % 2 === 0}>
               <CheckinBlock
                 title={block?.title}
-                text={block?.text}
+                text={block?.content}
                 succesMessage={block?.succesMessage}
               />
             </MatrixComponent>
@@ -90,7 +93,7 @@ const ComponentMatrix = ({ blocks = [], packages = [] }) => {
               <PackageBlock
                 packages={packages}
                 title={block?.title}
-                text={block?.text}
+                text={block?.content}
                 iban={block?.rekeningnummer}
                 paymentInstructions={block?.paymentInstructions}
               />

@@ -83,7 +83,7 @@ const CheckinBlock = ({ title, text, succesMessage }) => {
       <div className={styles['checkin-block__wrapper']}>
         <div className={styles['checkin-block__text']}>
           {title && <Title variant="h2">{title}</Title>}
-          {text && <Text modWysiwyg>{text}</Text>}
+          {text && <Text modStructured>{text}</Text>}
         </div>
         {!formSubmitted && (
           <form onSubmit={handleSubmit(submitForm)} className={styles['checkin-block__form']}>

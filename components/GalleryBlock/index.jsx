@@ -10,7 +10,7 @@ const GalleryBlock = ({ title, text, images }) => {
       <div className={styles['gallery-block__wrapper']}>
         <div className={styles['gallery-block__text-wrapper']}>
           {title && <Title>{title}</Title>}
-          {text && <Text>{text}</Text>}
+          {text && <Text modStructured>{text}</Text>}
         </div>
         {images?.length && (
           <div className={styles['gallery-block__images-wrapper']}>
