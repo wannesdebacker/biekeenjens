@@ -96,7 +96,6 @@ const PackageEngine = ({ packages = [], iban = '', paymentInstructions }) => {
             ))}
           </ul>
         </div>
-        <div className={styles['package__qr-price']}>{totalPrice}</div>
         {!!totalPrice && (
           <>
             <div
