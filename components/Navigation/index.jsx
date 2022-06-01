@@ -66,7 +66,9 @@ const Navigation = ({ pages = [], className }) => {
                             asPath === `/${item.slug}` && styles['navigation__link--active'],
                           )}
                           onClick={() => {
-                            toggleMenu(false);
+                            if (mediaQuery === 'small' || mediaQuery === 'xsmall') {
+                              toggleMenu(false);
+                            }
                           }}
                         >
                           {item.title}
