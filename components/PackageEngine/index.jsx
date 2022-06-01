@@ -15,33 +15,66 @@ const PackageEngine = ({ packages = [], iban = '', paymentInstructions }) => {
   const { t } = useTranslation('common');
   const [activePane, setActivePane] = useState('1');
   const [showQr, setShowQr] = useState(null);
-  const packageRef = useRef();
 
   const submitForm = useCallback(({ packages }, event) => {
     setActivePane('2');
     event.preventDefault();
   }, []);
   const packageWatcher = watch('package');
+  const watchFields = watch();
+
+  const packagesClone = useMemo(() => {
+    return packages.map((pkg) => ({ ...pkg, amount: 1 }));
+  }, [packages]);
 
   const activePackages = useMemo(() => {
-    return packages.filter(({ id }) =>
+    return packagesClone.filter(({ id }) =>
       packageWatcher?.length > 0 ? packageWatcher?.includes(id) : false,
     );
-  }, [packageWatcher, packages]);
+  }, [packageWatcher, packagesClone]);
+
+  const totalPackages = useMemo(() => {
+    let total = 0;
+
+    activePackages.forEach(({ price, id }) => {
+      const amount = parseInt(watchFields[`amount-${id}`]);
+
+      total += amount;
+    });
+
+    return total;
+  }, [activePackages, watchFields]);
 
   const totalPrice = useMemo(() => {
     if (activePackages?.length) {
       let currentPrice = 0;
 
-      activePackages.forEach(({ price }) => {
-        currentPrice += price;
+      activePackages.forEach(({ price, id }) => {
+        const amount = parseInt(watchFields[`amount-${id}`]);
+        currentPrice += price * parseInt(amount);
       });
 
       return currentPrice;
     }
 
     return 0;
-  }, [activePackages]);
+  }, [activePackages, watchFields]);
+
+  const totalAmountPerPackage = useCallback(
+    (id) => {
+      return parseInt(watchFields[`amount-${id}`]);
+    },
+    [watchFields],
+  );
+
+  const totalPricePerPackage = useCallback(
+    (id) => {
+      const product = packagesClone.find((pkg) => pkg.id === id);
+
+      return product?.price * parseInt(totalAmountPerPackage(id));
+    },
+    [packagesClone, totalAmountPerPackage],
+  );
 
   const packageActive = useCallback(
     (id) =>
@@ -57,30 +90,16 @@ const PackageEngine = ({ packages = [], iban = '', paymentInstructions }) => {
     return null;
   }, [totalPrice, iban]);
 
-  // const changeAmount = (id, amount) => {
-  //   packages.forEach((pkg) => {
-  //     if (pkg.id === id) {
-  //       pkg.amount = amount;
-  //     }
-  //   });
-  // };
-
-  useEffect(() => {
-    packages.forEach((pkg) => {
-      pkg.amount = 0;
-    });
-  }, [packages]);
-
   if (activePane === '2') {
     return (
       <div className={styles['package-engine']}>
         <div className={styles['package-engine__result']}>
           <ul className={styles['package-engine__items']}>
-            {activePackages?.map(({ id, title, price, image }) => (
+            {activePackages?.map(({ id, title, price, image, amount }) => (
               <li className={styles['package-engine__item']} key={`${id}-cart`}>
                 {title && (
                   <Title className={styles['package__title']} variant="h4">
-                    {title}
+                    {title} ({totalAmountPerPackage(id)})
                   </Title>
                 )}
                 {image && (
@@ -91,7 +110,9 @@ const PackageEngine = ({ packages = [], iban = '', paymentInstructions }) => {
                     modShadow={false}
                   />
                 )}
-                {price && <Text className={styles['package__price']}>{price}</Text>}
+                {totalPricePerPackage && (
+                  <Text className={styles['package__price']}>{totalPricePerPackage(id)}</Text>
+                )}
               </li>
             ))}
           </ul>
@@ -142,7 +163,7 @@ const PackageEngine = ({ packages = [], iban = '', paymentInstructions }) => {
     <div className={styles['package-engine']}>
       <form onSubmit={handleSubmit(submitForm)}>
         <ul className={styles['packages__list']}>
-          {packages.map(({ id, title, description, price, image }) => (
+          {packagesClone.map(({ id, title, description, price, image, amount }) => (
             <li
               key={id}
               className={classNames(
@@ -168,13 +189,18 @@ const PackageEngine = ({ packages = [], iban = '', paymentInstructions }) => {
                   )}
                   <div className={styles['package__price-wrapper']}>
                     <div className={styles['package__amount']}>
-                      {/* <input
-                        onChange={({ target }) => {
-                          changeAmount(id, target.value);
-                        }}
-                        className={styles['package__amount-input']}
-                        type="number"
-                      /> */}
+                      {!!packageActive(id) && (
+                        <input
+                          id={`package-${id}-amount`}
+                          className={styles['package__amount-input']}
+                          type="number"
+                          min="1"
+                          max="100"
+                          {...register(`amount-${id}`, {
+                            value: 1,
+                          })}
+                        />
+                      )}
                     </div>
                     {price && <Text className={styles['package__price']}>{price}</Text>}
                   </div>
@@ -184,10 +210,9 @@ const PackageEngine = ({ packages = [], iban = '', paymentInstructions }) => {
                   type="checkbox"
                   value={id}
                   className={styles['package__checkbox']}
-                  {...register('package', { required: true })}
-                  // onChange={() => {
-                  //   changeAmount(id, 1);
-                  // }}
+                  {...register('package', {
+                    required: true,
+                  })}
                 />
               </label>
             </li>
@@ -196,7 +221,8 @@ const PackageEngine = ({ packages = [], iban = '', paymentInstructions }) => {
         {!!totalPrice && (
           <div className={styles['packages__footer']}>
             <div>
-              {t('package.total_amount_items', { items: activePackages?.length })} -{' '}
+              {t('package.total_amount_items', { items: totalPackages })}
+              <span> - </span>
               <strong>{t('package.total_amount_price', { price: totalPrice })}</strong>
             </div>
             <div>
