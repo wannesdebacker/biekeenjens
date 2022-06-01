@@ -67,6 +67,10 @@
   align-items: center;
 }
 
+.package__title {
+  font-size: tools.rem(20);
+}
+
 .package__amount-input {
   max-width: tools.rem(50);
 }
@@ -121,10 +125,10 @@
   padding: 0;
   display: grid; 
   grid-auto-rows: 1fr; 
-  grid-template-columns: 1fr 1fr; 
+  grid-template-columns: 1fr; 
   grid-template-rows: 1fr; 
   grid-template-areas: 
-    ". ."; 
+    "."; 
   grid-column-gap: tools.rem(20);
   margin: 0 tools.rem(20);
 
