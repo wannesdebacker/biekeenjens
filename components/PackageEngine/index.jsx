@@ -3,7 +3,7 @@ import Title from 'components/Title';
 import Text from 'components/Text';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'next-i18next';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import Image from 'components/Image';
 import classNames from 'classnames';
 import Button from 'components/Button';
@@ -15,6 +15,7 @@ const PackageEngine = ({ packages = [], iban = '', paymentInstructions }) => {
   const { t } = useTranslation('common');
   const [activePane, setActivePane] = useState('1');
   const [showQr, setShowQr] = useState(null);
+  const packageRef = useRef();
 
   const submitForm = useCallback(({ packages }, event) => {
     setActivePane('2');
@@ -55,6 +56,20 @@ const PackageEngine = ({ packages = [], iban = '', paymentInstructions }) => {
 
     return null;
   }, [totalPrice, iban]);
+
+  // const changeAmount = (id, amount) => {
+  //   packages.forEach((pkg) => {
+  //     if (pkg.id === id) {
+  //       pkg.amount = amount;
+  //     }
+  //   });
+  // };
+
+  useEffect(() => {
+    packages.forEach((pkg) => {
+      pkg.amount = 0;
+    });
+  }, [packages]);
 
   if (activePane === '2') {
     return (
@@ -138,7 +153,11 @@ const PackageEngine = ({ packages = [], iban = '', paymentInstructions }) => {
             >
               <label htmlFor={`package-${id}`} className={styles['package__label']}>
                 <div className={styles['package__wrapper']}>
-                  {title && <Title className={styles['package__title']}>{title}</Title>}
+                  {title && (
+                    <Title className={styles['package__title']} variant="h4">
+                      {title}
+                    </Title>
+                  )}
                   {description && <Text className={styles['package__text']}>{description}</Text>}
                   {image && (
                     <Image
@@ -148,7 +167,18 @@ const PackageEngine = ({ packages = [], iban = '', paymentInstructions }) => {
                       modShadow={false}
                     />
                   )}
-                  {price && <Text className={styles['package__price']}>{price}</Text>}
+                  <div className={styles['package__price-wrapper']}>
+                    <div className={styles['package__amount']}>
+                      {/* <input
+                        onChange={({ target }) => {
+                          changeAmount(id, target.value);
+                        }}
+                        className={styles['package__amount-input']}
+                        type="number"
+                      /> */}
+                    </div>
+                    {price && <Text className={styles['package__price']}>{price}</Text>}
+                  </div>
                 </div>
                 <input
                   id={`package-${id}`}
@@ -156,6 +186,9 @@ const PackageEngine = ({ packages = [], iban = '', paymentInstructions }) => {
                   value={id}
                   className={styles['package__checkbox']}
                   {...register('package', { required: true })}
+                  // onChange={() => {
+                  //   changeAmount(id, 1);
+                  // }}
                 />
               </label>
             </li>

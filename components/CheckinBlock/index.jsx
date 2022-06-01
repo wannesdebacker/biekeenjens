@@ -220,7 +220,6 @@ const CheckinBlock = ({ title, text, succesMessage }) => {
                   {watchGenodigden && parseInt(watchGenodigden) > 1 && (
                     <li className={styles['checkin-block__list-item']}>
                       <label htmlFor="otherguests" className={styles['checkin-block__label']}>
-                        Namen van andere genodigden
                         {t('forms.otherGuests.label')}
                       </label>
                       {errors.otherguests?.type === 'required' && (

@@ -34,7 +34,7 @@
     "to_cart": "Bekijk winkelmandje",
     "generate_payment": "Ga naar betaling",
     "fallback": "Of schrijf €{{price}} over naar {{iban}}.",
-    "next_step": "Vorige stap",
-    "previous_step": "Volgende stap"
+    "next_step": "Volgende stap",
+    "previous_step": "Vorige stap"
   }
 }

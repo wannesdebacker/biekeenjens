@@ -20,9 +20,9 @@
   }
 
   &::after {
-    display: block;
+    display: none;
     height: tools.rem(48);
-    background: settings.$white;
+    background: settings.$light-gray;
     content: '';
     margin: 0 tools.rem(-12) tools.rem(-12);
     background-repeat: no-repeat;
@@ -31,6 +31,7 @@
 }
 
 .package--active::after {
+  display: block;
   background-color: settings.$darkgray;
   background-image: url('data:image/svg+xml, \
       <svg height="24" \
@@ -58,6 +59,16 @@
 .package-engine__items {
   margin: 0;
   padding: 0;
+}
+
+.package__price-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.package__amount-input {
+  max-width: tools.rem(50);
 }
 
 .package-engine__item {
@@ -188,4 +199,8 @@
   align-items: center;
   text-align: center;
   justify-content: center;
+}
+
+.package-engine {
+  margin: 0 tools.rem(20);
 }

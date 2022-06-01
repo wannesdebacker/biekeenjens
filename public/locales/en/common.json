@@ -33,7 +33,7 @@
     "total_amount_price": "Total amount: €{{price}}",
     "to_cart": "View cart",
     "generate_payment": "Generate payment",
-    "fallback": "Or transfer €{{price}} over to {{iban}}.",
+    "fallback": "Or transfer €{{price}} to {{iban}}.",
     "next_step": "Next step",
     "previous_step": "Previous step"
   }
