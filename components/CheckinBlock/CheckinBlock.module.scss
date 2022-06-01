@@ -12,6 +12,12 @@
 
 .checkin-block {
   display: block;
+  padding: 0 tools.rem(20);
+  width: auto;
+
+  @include tools.respond-from(medium) {
+    padding: 0;
+  }
 }
 
 .checkin-block__wrapper {

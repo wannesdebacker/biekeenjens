@@ -38,9 +38,6 @@ const ComponentMatrix = ({ blocks = [], packages = [] }) => {
           );
         }
         if (block.__typename === 'TextRecord') {
-          {
-            console.log(block);
-          }
           return (
             <MatrixComponent key={`${block.__typename}-${index}`} even={index % 2 === 0}>
               <TextBlock

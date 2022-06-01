@@ -65,6 +65,9 @@ const Navigation = ({ pages = [], className }) => {
                             styles['navigation__link'],
                             asPath === `/${item.slug}` && styles['navigation__link--active'],
                           )}
+                          onClick={() => {
+                            toggleMenu(false);
+                          }}
                         >
                           {item.title}
                         </a>
