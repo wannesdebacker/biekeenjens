@@ -35,6 +35,8 @@ const CheckinBlock = ({ title, text, succesMessage }) => {
       try {
         const { aanwezig, naam, dag, genodigden, honing, otherguests } = data;
 
+        const calculatedDay = !!query.day ? query.day : dag;
+
         if (honing) {
           setFormSubmitted(true);
           setFormError(false);
@@ -44,13 +46,13 @@ const CheckinBlock = ({ title, text, succesMessage }) => {
 
         const isAanwezig = aanwezig === 'yes';
 
-        if (!isAanwezig || (naam !== '' && dag !== '' && genodigden !== '')) {
+        if (!isAanwezig || (naam !== '' && calculatedDay !== '' && genodigden !== '')) {
           async function addCheckin() {
             const client = new SiteClient(process.env.NEXT_PUBLIC_DATOCMS_API_TOKEN);
             const record = await client.items.create({
               itemType: '218135', // model ID checkin
               naam,
-              dag: isAanwezig ? dag : '',
+              dag: isAanwezig ? calculatedDay : '',
               genodigden: isAanwezig ? genodigden : '',
               naamAndereGenodigden: isAanwezig ? otherguests : '',
               aanwezig: isAanwezig ? 'ja' : 'nee',
